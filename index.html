@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bravus & Bravinhos | Loja Online</title>
 <meta name="description" content="Catálogo online da Bravus Urban Wear (moda masculina) e Bravinhos (moda infantil) em Mossoró/RN. Escolha, monte seu pedido e finalize pelo WhatsApp.">
+<link rel="icon" href="logo-bravus.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,8 +26,8 @@ body[data-tema="bravus"]{
   --acc:#c9a54c; --acc-txt:#0d0d0d; --line:#2a2a2a; --font-title:'Bebas Neue',Impact,sans-serif;
 }
 body[data-tema="bravinhos"]{
-  --bg:#fff8ef; --bg2:#ffeedd; --card:#ffffff; --txt:#24324a; --muted:#6b7488;
-  --acc:#ff7a59; --acc-txt:#fff; --acc2:#2bb3a3; --line:#f1e2d0; --font-title:'Baloo 2',system-ui,sans-serif;
+  --bg:#fbf4ea; --bg2:#f3e6d4; --card:#ffffff; --txt:#482714; --muted:#8a6a55;
+  --acc:#c28044; --acc-txt:#fff; --acc2:#482714; --line:#ecdcc6; --font-title:'Baloo 2',system-ui,sans-serif;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -48,7 +49,7 @@ img{max-width:100%;display:block}
 .aba{padding:9px 18px;border-radius:999px;font-weight:700;font-size:14px;letter-spacing:.3px;color:var(--muted);transition:.2s;white-space:nowrap}
 .aba:hover{color:var(--txt)}
 .aba.ativa[data-ir="bravus"]{background:#0d0d0d;color:#c9a54c;box-shadow:inset 0 0 0 1px #c9a54c}
-.aba.ativa[data-ir="bravinhos"]{background:#ff7a59;color:#fff}
+.aba.ativa[data-ir="bravinhos"]{background:#c28044;color:#fff}
 .aba.ativa[data-ir="inicio"]{background:var(--acc);color:var(--acc-txt)}
 .btn-carrinho{position:relative;width:44px;height:44px;border-radius:50%;background:var(--acc);color:var(--acc-txt);display:grid;place-items:center;flex-shrink:0}
 .btn-carrinho svg{width:22px;height:22px}
@@ -67,16 +68,19 @@ img{max-width:100%;display:block}
 .porta:hover{transform:translateY(-4px)}
 .porta-bravus{background:radial-gradient(circle at 80% 15%,#2a2416 0,#0d0d0d 60%);border:1px solid #3a321f;color:#f2f2f2}
 .porta-bravus:hover{box-shadow:0 18px 50px rgba(201,165,76,.18)}
-.porta-bravinhos{background:linear-gradient(150deg,#ffd9c7 0,#fff1e3 55%,#d6f3ef 100%);color:#24324a}
-.porta-bravinhos:hover{box-shadow:0 18px 50px rgba(255,122,89,.25)}
+.porta-bravinhos{background:linear-gradient(150deg,#f6e3cc 0,#fbf4ea 55%,#efdcc3 100%);color:#482714}
+.porta-bravinhos:hover{box-shadow:0 18px 50px rgba(194,128,68,.28)}
 .porta .tag{font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:8px;opacity:.8}
-.porta h2{line-height:.95;margin-bottom:10px}
+.porta h2{line-height:.95;margin-bottom:14px}
+.logo-porta{display:block;height:auto}
+.porta-bravus .logo-porta{width:230px}
+.porta-bravinhos .logo-porta{width:270px}
 .porta-bravus h2{font-family:'Bebas Neue',Impact,sans-serif;font-size:64px;letter-spacing:3px;color:#c9a54c}
-.porta-bravinhos h2{font-family:'Baloo 2',system-ui,sans-serif;font-size:58px;font-weight:800;color:#ff7a59}
+.porta-bravinhos h2{font-family:'Baloo 2',system-ui,sans-serif;font-size:58px;font-weight:800;color:#c28044}
 .porta p{font-size:15px;line-height:1.55;max-width:380px;opacity:.85;margin-bottom:22px}
 .porta .ir{display:inline-flex;align-items:center;gap:8px;font-weight:700;padding:13px 22px;border-radius:999px;width:max-content}
 .porta-bravus .ir{background:#c9a54c;color:#0d0d0d}
-.porta-bravinhos .ir{background:#ff7a59;color:#fff}
+.porta-bravinhos .ir{background:#c28044;color:#fff}
 .porta .deco{position:absolute;top:26px;right:28px;font-size:13px;opacity:.5;letter-spacing:2px}
 .bolhas span{position:absolute;border-radius:50%;opacity:.55}
 .como{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding-bottom:60px}
@@ -94,6 +98,10 @@ img{max-width:100%;display:block}
 body[data-tema="bravus"] .loja-hero h1{letter-spacing:3px}
 body[data-tema="bravinhos"] .loja-hero h1{font-weight:800;color:var(--acc)}
 .loja-hero p{color:var(--muted);max-width:620px;line-height:1.6}
+#lojaLogo{display:block;height:auto;margin:10px 0 4px}
+body[data-tema="bravus"] #lojaLogo{width:min(300px,70vw)}
+body[data-tema="bravinhos"] #lojaLogo{width:min(360px,80vw)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 0 6px;position:sticky;top:64px;background:var(--bg);z-index:30}
 .busca{flex:1 1 260px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:0 16px;height:46px}
 .busca svg{width:18px;height:18px;opacity:.5;flex-shrink:0}
@@ -108,7 +116,7 @@ body[data-tema="bravinhos"] .loja-hero h1{font-weight:800;color:var(--acc)}
 .chip.ativo{background:var(--acc);color:var(--acc-txt);border-color:var(--acc)}
 .grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;padding-bottom:70px}
 .produto{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
-body[data-tema="bravinhos"] .produto{border-radius:20px;box-shadow:0 4px 18px rgba(36,50,74,.06)}
+body[data-tema="bravinhos"] .produto{border-radius:20px;box-shadow:0 4px 18px rgba(72,39,20,.07)}
 .foto{position:relative;aspect-ratio:4/5;background:var(--bg2);overflow:hidden}
 .foto img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .produto:hover .foto img{transform:scale(1.04)}
@@ -116,7 +124,7 @@ body[data-tema="bravinhos"] .produto{border-radius:20px;box-shadow:0 4px 18px rg
 .sem-foto .ini{font-family:var(--font-title);font-size:54px;color:var(--acc);opacity:.75;line-height:1}
 .sem-foto small{font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.7}
 body[data-tema="bravus"] .sem-foto{background:repeating-linear-gradient(135deg,#171717 0 14px,#1c1c1c 14px 28px)}
-body[data-tema="bravinhos"] .sem-foto{background:radial-gradient(circle at 30% 30%,#ffe3d6 0,#fff4ea 60%)}
+body[data-tema="bravinhos"] .sem-foto{background:radial-gradient(circle at 30% 30%,#f3e1ca 0,#fbf4ea 60%)}
 .selo{position:absolute;top:10px;left:10px;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.5px;background:#e5484d;color:#fff}
 .selo.novo{background:var(--acc);color:var(--acc-txt)}
 .info{padding:14px 14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
@@ -197,7 +205,7 @@ body[data-tema="admin"]{--bg:#f4f4f5;--bg2:#e9e9ec;--card:#fff;--txt:#18181b;--m
 .adm-lojas{display:flex;gap:8px;margin-bottom:16px}
 .adm-lojas button{flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-weight:700}
 .adm-lojas button.on[data-l="bravus"]{background:#0d0d0d;color:#c9a54c;border-color:#0d0d0d}
-.adm-lojas button.on[data-l="bravinhos"]{background:#ff7a59;color:#fff;border-color:#ff7a59}
+.adm-lojas button.on[data-l="bravinhos"]{background:#c28044;color:#fff;border-color:#c28044}
 .adm-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
 .adm-login{display:grid;gap:12px;max-width:360px}
 .adm-login input{padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}
@@ -269,18 +277,18 @@ body[data-tema="admin"]{--bg:#f4f4f5;--bg2:#e9e9ec;--card:#fff;--txt:#18181b;--m
       <a href="#bravus" class="porta porta-bravus">
         <span class="deco">MODA MASCULINA</span>
         <span class="tag">Urban Wear</span>
-        <h2>BRAVUS</h2>
+        <h2><img class="logo-porta" src="logo-bravus.png" alt="BRAVUS"></h2>
         <p>Polos, camisas, jeans e bermudas, com marcas que você conhece e a nossa linha própria de básicos.</p>
         <span class="ir">Entrar na Bravus →</span>
       </a>
       <a href="#bravinhos" class="porta porta-bravinhos">
         <div class="bolhas">
-          <span style="width:90px;height:90px;background:#ffb59c;top:24px;right:40px"></span>
-          <span style="width:46px;height:46px;background:#9fe3da;top:110px;right:140px"></span>
-          <span style="width:26px;height:26px;background:#ffd36e;top:60px;right:170px"></span>
+          <span style="width:90px;height:90px;background:#e8c9a4;top:24px;right:40px"></span>
+          <span style="width:46px;height:46px;background:#d9a873;top:110px;right:140px"></span>
+          <span style="width:26px;height:26px;background:#c28044;top:60px;right:170px"></span>
         </div>
         <span class="tag">Moda Infantil</span>
-        <h2>Bravinhos</h2>
+        <h2><img class="logo-porta" src="logo-bravinhos.png" alt="Bravinhos moda infantil"></h2>
         <p>Roupas confortáveis e cheias de estilo para os pequenos, do bebê ao juvenil.</p>
         <span class="ir">Entrar na Bravinhos →</span>
       </a>
@@ -299,7 +307,7 @@ body[data-tema="admin"]{--bg:#f4f4f5;--bg2:#e9e9ec;--card:#fff;--txt:#18181b;--m
   <div class="wrap">
     <section class="loja-hero">
       <small id="lojaTag"></small>
-      <h1 id="lojaNome"></h1>
+      <h1 id="lojaNome"><img id="lojaLogo" alt=""><span class="sr" id="lojaNomeTxt"></span></h1>
       <p id="lojaDesc"></p>
     </section>
 
@@ -531,7 +539,7 @@ async function rota(){
   if(!loja){ document.title='Bravus & Bravinhos | Loja Online'; return; }
   const c = CONFIG[loja];
   document.title = c.nome + ' | Loja Online';
-  $('#lojaTag').textContent = c.tag; $('#lojaNome').textContent = c.nome; $('#lojaDesc').textContent = c.descricao;
+  $('#lojaTag').textContent = c.tag; $('#lojaNomeTxt').textContent = c.nome; $('#lojaLogo').src = 'logo-'+loja+'.png'; $('#lojaLogo').alt = c.nome; $('#lojaDesc').textContent = c.descricao;
   estado.cat='Todos'; estado.gen='Todos'; estado.busca=''; $('#busca').value='';
   $('#grade').innerHTML = '<div class="carregando">Carregando produtos…</div>';
   await carregar(loja);
