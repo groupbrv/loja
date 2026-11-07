@@ -183,6 +183,8 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-s
 footer .wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between}
 footer h4{color:var(--txt);margin-bottom:6px;font-size:14px}
 footer a{color:var(--acc);text-decoration:none}
+.link-adm{display:inline-block;margin-left:14px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted)!important;font-size:12px}
+.link-adm:hover{color:var(--txt)!important;border-color:var(--muted)}
 .legal{width:100%;font-size:12px;opacity:.7;margin-top:10px}
 
 /* =========================================================
@@ -672,7 +674,7 @@ function rodape(){
       ${c.horario?`<br>${esc(c.horario)}`:''}</div>`; };
   const lojas = estado.loja ? [estado.loja] : ['bravus','bravinhos'];
   $('#rodape').innerHTML = lojas.map(bloco).join('') +
-    `<div class="legal">© ${new Date().getFullYear()} Group BRV · CNPJ ${CONFIG.cnpj} · Preços e disponibilidade sujeitos a confirmação no atendimento.</div>`;
+    `<div class="legal">© ${new Date().getFullYear()} Group BRV · CNPJ ${CONFIG.cnpj} · Preços e disponibilidade sujeitos a confirmação no atendimento.<a href="#admin" class="link-adm">🔒 Área do lojista</a></div>`;
 }
 
 /* =========================================================
