@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bravus & Bravinhos | Loja Online</title>
+<meta name="description" content="Catálogo online da Bravus Urban Wear (moda masculina) e Bravinhos (moda infantil) em Mossoró/RN. Escolha, monte seu pedido e finalize pelo WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   TEMAS
+   ========================================================= */
+:root{
+  --font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --radius:14px;
+}
+body[data-tema="inicio"]{
+  --bg:#111111; --bg2:#1a1a1a; --card:#1d1d1d; --txt:#f3f3f3; --muted:#a9a9a9;
+  --acc:#c9a54c; --acc-txt:#111; --line:#2c2c2c; --font-title:'Bebas Neue',Impact,sans-serif;
+}
+body[data-tema="bravus"]{
+  --bg:#0d0d0d; --bg2:#161616; --card:#1b1b1b; --txt:#f2f2f2; --muted:#9e9e9e;
+  --acc:#c9a54c; --acc-txt:#0d0d0d; --line:#2a2a2a; --font-title:'Bebas Neue',Impact,sans-serif;
+}
+body[data-tema="bravinhos"]{
+  --bg:#fff8ef; --bg2:#ffeedd; --card:#ffffff; --txt:#24324a; --muted:#6b7488;
+  --acc:#ff7a59; --acc-txt:#fff; --acc2:#2bb3a3; --line:#f1e2d0; --font-title:'Baloo 2',system-ui,sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--txt);min-height:100vh;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:16px}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+
+/* =========================================================
+   TOPO + ABAS
+   ========================================================= */
+.topo{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topo .wrap{display:flex;align-items:center;gap:14px;height:64px}
+.marca-grupo{font-family:'Bebas Neue',Impact,sans-serif;font-size:22px;letter-spacing:2px;color:var(--txt);text-decoration:none;white-space:nowrap}
+.marca-grupo span{color:var(--acc)}
+.abas{display:flex;gap:6px;margin-left:auto;background:var(--bg2);padding:5px;border-radius:999px;border:1px solid var(--line)}
+.aba{padding:9px 18px;border-radius:999px;font-weight:700;font-size:14px;letter-spacing:.3px;color:var(--muted);transition:.2s;white-space:nowrap}
+.aba:hover{color:var(--txt)}
+.aba.ativa[data-ir="bravus"]{background:#0d0d0d;color:#c9a54c;box-shadow:inset 0 0 0 1px #c9a54c}
+.aba.ativa[data-ir="bravinhos"]{background:#ff7a59;color:#fff}
+.aba.ativa[data-ir="inicio"]{background:var(--acc);color:var(--acc-txt)}
+.btn-carrinho{position:relative;width:44px;height:44px;border-radius:50%;background:var(--acc);color:var(--acc-txt);display:grid;place-items:center;flex-shrink:0}
+.btn-carrinho svg{width:22px;height:22px}
+.btn-carrinho .qtd{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#e5484d;color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
+.btn-carrinho[hidden]{display:none}
+
+/* =========================================================
+   INÍCIO (boas-vindas)
+   ========================================================= */
+.inicio-hero{text-align:center;padding:56px 0 30px}
+.inicio-hero small{letter-spacing:4px;text-transform:uppercase;color:var(--acc);font-size:12px;font-weight:600}
+.inicio-hero h1{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(42px,8vw,78px);letter-spacing:2px;line-height:.95;margin:12px 0}
+.inicio-hero p{color:var(--muted);max-width:560px;margin:0 auto;font-size:16px;line-height:1.6}
+.portas{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:20px 0 60px}
+.porta{text-decoration:none;position:relative;border-radius:22px;overflow:hidden;min-height:360px;padding:34px;display:flex;flex-direction:column;justify-content:flex-end;text-align:left;transition:transform .25s,box-shadow .25s}
+.porta:hover{transform:translateY(-4px)}
+.porta-bravus{background:radial-gradient(circle at 80% 15%,#2a2416 0,#0d0d0d 60%);border:1px solid #3a321f;color:#f2f2f2}
+.porta-bravus:hover{box-shadow:0 18px 50px rgba(201,165,76,.18)}
+.porta-bravinhos{background:linear-gradient(150deg,#ffd9c7 0,#fff1e3 55%,#d6f3ef 100%);color:#24324a}
+.porta-bravinhos:hover{box-shadow:0 18px 50px rgba(255,122,89,.25)}
+.porta .tag{font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:8px;opacity:.8}
+.porta h2{line-height:.95;margin-bottom:10px}
+.porta-bravus h2{font-family:'Bebas Neue',Impact,sans-serif;font-size:64px;letter-spacing:3px;color:#c9a54c}
+.porta-bravinhos h2{font-family:'Baloo 2',system-ui,sans-serif;font-size:58px;font-weight:800;color:#ff7a59}
+.porta p{font-size:15px;line-height:1.55;max-width:380px;opacity:.85;margin-bottom:22px}
+.porta .ir{display:inline-flex;align-items:center;gap:8px;font-weight:700;padding:13px 22px;border-radius:999px;width:max-content}
+.porta-bravus .ir{background:#c9a54c;color:#0d0d0d}
+.porta-bravinhos .ir{background:#ff7a59;color:#fff}
+.porta .deco{position:absolute;top:26px;right:28px;font-size:13px;opacity:.5;letter-spacing:2px}
+.bolhas span{position:absolute;border-radius:50%;opacity:.55}
+.como{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding-bottom:60px}
+.como div{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.como b{display:block;color:var(--acc);font-family:'Bebas Neue',Impact,sans-serif;font-size:30px;letter-spacing:1px}
+.como h3{font-size:16px;margin:4px 0 6px}
+.como p{font-size:14px;color:var(--muted);line-height:1.5}
+
+/* =========================================================
+   LOJA (catálogo)
+   ========================================================= */
+.loja-hero{padding:44px 0 26px}
+.loja-hero small{letter-spacing:3px;text-transform:uppercase;color:var(--acc);font-weight:700;font-size:12px}
+.loja-hero h1{font-family:var(--font-title);font-size:clamp(40px,7vw,68px);line-height:1;margin:8px 0 10px;letter-spacing:1px}
+body[data-tema="bravus"] .loja-hero h1{letter-spacing:3px}
+body[data-tema="bravinhos"] .loja-hero h1{font-weight:800;color:var(--acc)}
+.loja-hero p{color:var(--muted);max-width:620px;line-height:1.6}
+.barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 0 6px;position:sticky;top:64px;background:var(--bg);z-index:30}
+.busca{flex:1 1 260px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:0 16px;height:46px}
+.busca svg{width:18px;height:18px;opacity:.5;flex-shrink:0}
+.busca input{flex:1;border:none;outline:none;background:transparent;color:var(--txt);height:100%}
+.ordenar{height:46px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--txt);padding:0 16px}
+.generos{display:inline-flex;gap:4px;background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:4px;margin-top:8px}
+.gen{padding:8px 18px;border-radius:999px;font-weight:700;font-size:14px;color:var(--muted)}
+.gen.ativo{background:var(--acc2,var(--acc));color:#fff}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:8px 0 16px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:14px;font-weight:600;white-space:nowrap;color:var(--muted)}
+.chip.ativo{background:var(--acc);color:var(--acc-txt);border-color:var(--acc)}
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;padding-bottom:70px}
+.produto{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+body[data-tema="bravinhos"] .produto{border-radius:20px;box-shadow:0 4px 18px rgba(36,50,74,.06)}
+.foto{position:relative;aspect-ratio:4/5;background:var(--bg2);overflow:hidden}
+.foto img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.produto:hover .foto img{transform:scale(1.04)}
+.sem-foto{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
+.sem-foto .ini{font-family:var(--font-title);font-size:54px;color:var(--acc);opacity:.75;line-height:1}
+.sem-foto small{font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.7}
+body[data-tema="bravus"] .sem-foto{background:repeating-linear-gradient(135deg,#171717 0 14px,#1c1c1c 14px 28px)}
+body[data-tema="bravinhos"] .sem-foto{background:radial-gradient(circle at 30% 30%,#ffe3d6 0,#fff4ea 60%)}
+.selo{position:absolute;top:10px;left:10px;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.5px;background:#e5484d;color:#fff}
+.selo.novo{background:var(--acc);color:var(--acc-txt)}
+.info{padding:14px 14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.info .mc{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.info h3{font-size:15px;font-weight:600;line-height:1.35}
+.preco{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.preco b{font-size:19px;color:var(--acc)}
+body[data-tema="bravinhos"] .preco b{color:var(--txt)}
+.preco s{font-size:13px;color:var(--muted)}
+.parcela{font-size:12px;color:var(--muted)}
+.cores{font-size:12px;color:var(--muted)}
+.tams{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.tam{min-width:38px;height:34px;padding:0 8px;border-radius:8px;border:1px solid var(--line);font-size:13px;font-weight:600;background:transparent}
+.tam:hover:not(:disabled){border-color:var(--acc)}
+.tam.sel{background:var(--acc);color:var(--acc-txt);border-color:var(--acc)}
+.tam:disabled{opacity:.3;text-decoration:line-through;cursor:not-allowed}
+.add{margin-top:auto;height:44px;border-radius:10px;background:var(--acc);color:var(--acc-txt);font-weight:700;font-size:14px;transition:opacity .2s}
+body[data-tema="bravinhos"] .add{border-radius:999px}
+.add:disabled{opacity:.35;cursor:not-allowed}
+.vazio{grid-column:1/-1;text-align:center;padding:60px 10px;color:var(--muted)}
+.carregando{grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)}
+
+/* =========================================================
+   CARRINHO (gaveta)
+   ========================================================= */
+.fundo{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;opacity:0;pointer-events:none;transition:.25s}
+.fundo.on{opacity:1;pointer-events:auto}
+.gaveta{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--bg);border-left:1px solid var(--line);z-index:70;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column}
+.gaveta.on{transform:none}
+.g-topo{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}
+.g-topo h2{font-family:var(--font-title);font-size:28px;letter-spacing:1px}
+.fechar{width:38px;height:38px;border-radius:50%;background:var(--bg2);font-size:20px}
+.g-itens{flex:1;overflow:auto;padding:12px 20px}
+.item{display:grid;grid-template-columns:58px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:center}
+.item .mini{width:58px;height:70px;border-radius:8px;background:var(--bg2);overflow:hidden;display:grid;place-items:center;font-family:var(--font-title);color:var(--acc);font-size:22px}
+.item .mini img{width:100%;height:100%;object-fit:cover}
+.item h4{font-size:14px;font-weight:600}
+.item small{color:var(--muted);font-size:12px}
+.qtdbox{display:flex;align-items:center;gap:6px;margin-top:6px}
+.qtdbox button{width:28px;height:28px;border-radius:6px;background:var(--bg2);font-weight:700}
+.item .valor{text-align:right;font-weight:700;font-size:14px}
+.item .rm{display:block;margin-top:6px;font-size:12px;color:var(--muted);text-decoration:underline}
+.g-rodape{padding:18px 20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.total{display:flex;justify-content:space-between;font-size:18px;font-weight:700}
+.campo{display:flex;flex-direction:column;gap:5px}
+.campo label{font-size:12px;color:var(--muted);font-weight:600}
+.campo input,.campo select,.campo textarea{background:var(--card);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:10px 12px;outline:none}
+.campo input:focus,.campo select:focus,.campo textarea:focus{border-color:var(--acc)}
+.linha2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn-zap{height:50px;border-radius:12px;background:#25d366;color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-zap svg{width:20px;height:20px}
+.btn-zap:disabled{opacity:.4;cursor:not-allowed}
+.aviso{font-size:12px;color:var(--muted);line-height:1.45}
+.g-vazio{text-align:center;padding:60px 10px;color:var(--muted)}
+
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:var(--txt);color:var(--bg);padding:12px 20px;border-radius:999px;font-weight:600;font-size:14px;opacity:0;transition:.25s;z-index:90;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between}
+footer h4{color:var(--txt);margin-bottom:6px;font-size:14px}
+footer a{color:var(--acc);text-decoration:none}
+.legal{width:100%;font-size:12px;opacity:.7;margin-top:10px}
+
+[hidden]{display:none!important}
+
+@media (max-width:760px){
+  .portas,.como{grid-template-columns:1fr}
+  .porta{min-height:300px;padding:26px}
+  .porta-bravus h2{font-size:52px}.porta-bravinhos h2{font-size:48px}
+  .marca-grupo{font-size:18px}
+  .aba{padding:8px 12px;font-size:13px}
+  .aba[data-ir="inicio"]{display:none}
+  .grade{grid-template-columns:repeat(2,1fr);gap:12px}
+  .info{padding:10px}
+  .info h3{font-size:13px}
+  .tam{min-width:32px;height:30px;font-size:12px}
+}
+@media (max-width:400px){.topo .wrap{gap:8px;padding:0 12px}.marca-grupo{font-size:16px;letter-spacing:1px}.aba{padding:8px 10px}}
+@media (max-width:350px){.marca-grupo{display:none}}
+</style>
+</head>
+<body data-tema="inicio">
+
+<header class="topo">
+  <div class="wrap">
+    <a href="#inicio" class="marca-grupo">GROUP<span>BRV</span></a>
+    <nav class="abas" aria-label="Lojas">
+      <button class="aba" data-ir="inicio">Início</button>
+      <button class="aba" data-ir="bravus">BRAVUS</button>
+      <button class="aba" data-ir="bravinhos">Bravinhos</button>
+    </nav>
+    <button class="btn-carrinho" id="btnCarrinho" aria-label="Abrir sacola" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      <span class="qtd" id="qtdCarrinho">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- ===================== INÍCIO ===================== -->
+<main id="tela-inicio">
+  <div class="wrap">
+    <section class="inicio-hero">
+      <small>Mossoró · RN</small>
+      <h1>Seja bem-vindo</h1>
+      <p>Duas lojas, um só cuidado com você. Escolha abaixo, monte sua sacola e finalize o pedido direto no nosso WhatsApp.</p>
+    </section>
+
+    <section class="portas">
+      <a href="#bravus" class="porta porta-bravus">
+        <span class="deco">MODA MASCULINA</span>
+        <span class="tag">Urban Wear</span>
+        <h2>BRAVUS</h2>
+        <p>Polos, camisas, jeans e bermudas, com marcas que você conhece e a nossa linha própria de básicos.</p>
+        <span class="ir">Entrar na Bravus →</span>
+      </a>
+      <a href="#bravinhos" class="porta porta-bravinhos">
+        <div class="bolhas">
+          <span style="width:90px;height:90px;background:#ffb59c;top:24px;right:40px"></span>
+          <span style="width:46px;height:46px;background:#9fe3da;top:110px;right:140px"></span>
+          <span style="width:26px;height:26px;background:#ffd36e;top:60px;right:170px"></span>
+        </div>
+        <span class="tag">Moda Infantil</span>
+        <h2>Bravinhos</h2>
+        <p>Roupas confortáveis e cheias de estilo para os pequenos, do bebê ao juvenil.</p>
+        <span class="ir">Entrar na Bravinhos →</span>
+      </a>
+    </section>
+
+    <section class="como">
+      <div><b>01</b><h3>Escolha</h3><p>Navegue pela loja, filtre por categoria e selecione o tamanho.</p></div>
+      <div><b>02</b><h3>Monte a sacola</h3><p>Adicione quantas peças quiser. Cada loja tem a sua sacola.</p></div>
+      <div><b>03</b><h3>Finalize no WhatsApp</h3><p>Seu pedido chega pronto para a nossa equipe confirmar a disponibilidade, o pagamento e a entrega.</p></div>
+    </section>
+  </div>
+</main>
+
+<!-- ===================== LOJA ===================== -->
+<main id="tela-loja" hidden>
+  <div class="wrap">
+    <section class="loja-hero">
+      <small id="lojaTag"></small>
+      <h1 id="lojaNome"></h1>
+      <p id="lojaDesc"></p>
+    </section>
+
+    <div class="barra">
+      <label class="busca">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="busca" type="search" placeholder="Buscar produto, marca, cor...">
+      </label>
+      <select id="ordenar" class="ordenar" aria-label="Ordenar">
+        <option value="padrao">Destaques</option>
+        <option value="menor">Menor preço</option>
+        <option value="maior">Maior preço</option>
+        <option value="az">A–Z</option>
+      </select>
+    </div>
+    <div class="generos" id="generos" hidden></div>
+    <div class="chips" id="chips"></div>
+    <div class="grade" id="grade"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap" id="rodape"></div>
+</footer>
+
+<!-- ===================== SACOLA ===================== -->
+<div class="fundo" id="fundo"></div>
+<aside class="gaveta" id="gaveta" aria-label="Sacola">
+  <div class="g-topo">
+    <h2 id="gTitulo">Sacola</h2>
+    <button class="fechar" id="fechar" aria-label="Fechar">×</button>
+  </div>
+  <div class="g-itens" id="gItens"></div>
+  <div class="g-rodape" id="gRodape">
+    <div class="total"><span>Total</span><span id="gTotal">R$ 0,00</span></div>
+    <div class="campo"><label for="cNome">Seu nome *</label><input id="cNome" autocomplete="name" placeholder="Como podemos te chamar?"></div>
+    <div class="linha2">
+      <div class="campo"><label for="cReceber">Receber</label>
+        <select id="cReceber"><option>Retirar na loja</option><option>Entrega em Mossoró</option></select></div>
+      <div class="campo"><label for="cPagto">Pagamento</label>
+        <select id="cPagto"><option>Pix</option><option>Cartão de crédito</option><option>Cartão de débito</option><option>Dinheiro</option></select></div>
+    </div>
+    <div class="campo" id="campoEnd" hidden><label for="cEnd">Endereço / bairro</label><input id="cEnd" autocomplete="street-address" placeholder="Rua, número, bairro"></div>
+    <div class="campo"><label for="cObs">Observação</label><input id="cObs" placeholder="Ex.: é para presente"></div>
+    <button class="btn-zap" id="btnZap">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+      Enviar pedido pelo WhatsApp
+    </button>
+    <p class="aviso">A disponibilidade das peças é confirmada pela nossa equipe no WhatsApp antes do pagamento.</p>
+  </div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   CONFIGURAÇÃO: o que você vai editar
+   ========================================================= */
+const CONFIG = {
+  bravus: {
+    nome: 'BRAVUS',
+    tag: 'Urban Wear · Moda Masculina',
+    descricao: 'Estilo urbano com acabamento premium. Escolha suas peças, selecione o tamanho e finalize pelo WhatsApp.',
+    whatsapp: '5584987590083',          // DDI + DDD + número, só dígitos
+    planilhaCSV: '',                    // link CSV da aba "vitrine" (Arquivo › Compartilhar › Publicar na Web › CSV)
+    endereco: 'Rua Frei Miguelinho, 333, Centro, Mossoró/RN',
+    instagram: '',                      // ex.: 'bravusurbanwear' (sem @)
+    mostrarMarca: false,                // no cadastro da Bravus a coluna Marca/Fornecedor traz o fornecedor: não exibir
+    generos: null,                      // filtro de gênero (null = não mostra)
+    horario: ''                         // ex.: 'Seg a Sex 9h–18h · Sáb 9h–13h'
+  },
+  bravinhos: {
+    nome: 'Bravinhos',
+    tag: 'Moda Infantil',
+    descricao: 'Conforto e estilo para os pequenos. Escolha o tamanho certinho e finalize pelo WhatsApp.',
+    whatsapp: '5584987590083',          // troque se a Bravinhos tiver número próprio
+    planilhaCSV: '',
+    endereco: 'Rua Frei Miguelinho, 333, Centro, Mossoró/RN',
+    instagram: '',
+    horario: '',
+    mostrarMarca: true,
+    ocultarMarcas: ['variado'],         // marcas que não aparecem no site
+    generos: {Feminino:'Menina', Masculino:'Menino', Unissex:'Unissex'}
+  },
+  parcelasMax: 3,                       // mostra "ou 3x de R$ ..." (0 para esconder)
+  mostrarEsgotados: false,              // true = mostra produto esgotado com selo; false = esconde
+  cnpj: '65.122.743/0001-80'
+};
+
+/* =========================================================
+   CATÁLOGO INICIAL: retrato dos PDVs em 06/11/2026 (usado enquanto planilhaCSV estiver vazio
+   ou se a planilha não responder). Colunas da aba "vitrine":
+   codigo | nome | categoria | marca | genero | preco | preco_promo | tamanhos | cores | foto | destaque | ativo
+   tamanhos: "P:2|M:0|G:3" (tamanho:estoque) ou "P:2:149.90|G:1:139.90" quando o preço muda por tamanho
+   ========================================================= */
+const CATALOGO_INICIAL = {"bravus":[{"codigo":"BAS-0019-PRETO","nome":"Básica Bravus Menegotti — Preto","categoria":"T-Shirt","marca":"HEIBEN","genero":"Masculino","preco":"59.90","tamanhos":"P:5|M:4|G:6|GG:3","cores":"Preto"},{"codigo":"BAS-0046-PRETO","nome":"Básica Bravus Cotton — Preto","categoria":"T-Shirt","marca":"TRIONDAS","genero":"Masculino","preco":"109.90","tamanhos":"P:2|M:2|G:2|GG:2","cores":"Preto"},{"codigo":"BER-0002-VINHO","nome":"Bermuda Sarja Florenc — Vinho","categoria":"Bermuda","marca":"FLORENC","genero":"Masculino","preco":"139.90","tamanhos":"40:2|42:2|44:2","cores":"Vinho"},{"codigo":"BER-0002-PRETO","nome":"Bermuda Sarja Florenc — Preto","categoria":"Bermuda","marca":"FLORENC","genero":"Masculino","preco":"139.90","tamanhos":"42:1","cores":"Preto"},{"codigo":"BER-0002-VERDEM","nome":"Bermuda Sarja Florenc — Verde Militar","categoria":"Bermuda","marca":"FLORENC","genero":"Masculino","preco":"139.90","tamanhos":"42:3|44:3","cores":"Verde Militar"},{"codigo":"BER-0008-VERDEM","nome":"Bermuda Bellagio Dallander — Verde Militar","categoria":"Bermuda","marca":"DALLANDER","genero":"Masculino","preco":"149.90","tamanhos":"40:1|42:1|44:2|46:2","cores":"Verde Militar"},{"codigo":"BER-0009-MARINH","nome":"Bermuda Multiplex — Marinho","categoria":"Bermuda","marca":"TIGGS","genero":"Masculino","preco":"89.90","tamanhos":"42:1|44:1","cores":"Marinho"},{"codigo":"BER-0011-PRETO","nome":"Bermuda Sarja — Preto","categoria":"Bermuda","marca":"BRAVUS","genero":"Masculino","preco":"109.90","tamanhos":"40:1|42:0","cores":"Preto"},{"codigo":"BER-0011-OUTROS","nome":"Bermuda Sarja — Outros","categoria":"Bermuda","marca":"BRAVUS","genero":"Masculino","preco":"109.90","tamanhos":"40:1|46:1","cores":"Outros"},{"codigo":"BER-0050-CINZA","nome":"Bermuda Alfaiataria Florença A.L. Dom Thoredo — Cinza","categoria":"Bermuda","marca":"DOM THOREDO","genero":"Masculino","preco":"134.90","tamanhos":"40:1|42:2|44:1","cores":"Cinza"},{"codigo":"BER-0056-PRETO","nome":"Bermuda Alfaiataria Italian Dallander — Preto","categoria":"Bermuda","marca":"DALLANDER","genero":"Masculino","preco":"159.90","tamanhos":"40:0|42:1|44:1","cores":"Preto"},{"codigo":"BER-0056-AREIA","nome":"Bermuda Alfaiataria Italian Dallander — Areia","categoria":"Bermuda","marca":"DALLANDER","genero":"Masculino","preco":"159.90","tamanhos":"40:0|46:1","cores":"Areia"},{"codigo":"CAL-0013-PRETO","nome":"Calça Jeans Canatiba — Preto","categoria":"Calça","marca":"ZÉ ATACADO","genero":"Masculino","preco":"209.90","tamanhos":"40:1","cores":"Preto"},{"codigo":"CAL-0013-MARINH","nome":"Calça Jeans Canatiba — Marinho","categoria":"Calça","marca":"ZÉ ATACADO","genero":"Masculino","preco":"209.90","tamanhos":"40:0|42:8|44:3","cores":"Marinho"},{"codigo":"CAL-0014-CAFE","nome":"Calça Alfaiataria — Café","categoria":"Calça","marca":"ZÉ ATACADO","genero":"Masculino","preco":"209.90","tamanhos":"44:1","cores":"Café"},{"codigo":"CAL-0015-PRETO","nome":"Calça Sarja — Preto","categoria":"Calça","marca":"BRAVUS","genero":"Masculino","preco":"169.90","tamanhos":"38:2|40:0|44:3|46:1","cores":"Preto"},{"codigo":"CAL-0015-VERDEM","nome":"Calça Sarja — Verde Militar","categoria":"Calça","marca":"BRAVUS","genero":"Masculino","preco":"169.90","tamanhos":"38:1|40:1|42:1|44:1|46:1|48:2","cores":"Verde Militar"},{"codigo":"SHO-0006-PRETO","nome":"Short Tactel — Preto","categoria":"Short","marca":"TRIONDAS","genero":"Masculino","preco":"44.90","tamanhos":"40:1","cores":"Preto"},{"codigo":"SHO-0006-MARINH","nome":"Short Tactel — Marinho","categoria":"Short","marca":"TRIONDAS","genero":"Masculino","preco":"44.90","tamanhos":"42:2|44:2","cores":"Marinho"},{"codigo":"SHO-0012-MARINH","nome":"Short Jeans — Marinho","categoria":"Short","marca":"BRAVUS","genero":"Masculino","preco":"74.90","tamanhos":"44:1","cores":"Marinho"},{"codigo":"CAM-0049-PRETO","nome":"Camisa Gola V Niterói Dom Thoredo — Preto","categoria":"Camisa","marca":"DOM THOREDO","genero":"Masculino","preco":"139.90","tamanhos":"P:1|M:2|G:2","cores":"Preto"},{"codigo":"ITA-0018-AREIA","nome":"T-Shirt Malha Pima MM — Areia","categoria":"T-Shirt","marca":"BRAVUS","genero":"Masculino","preco":"79.90","tamanhos":"M:1","cores":"Areia"},{"codigo":"ITA-0018-PRETO","nome":"T-Shirt Malha Pima MM — Preto","categoria":"T-Shirt","marca":"BRAVUS","genero":"Masculino","preco":"79.90","tamanhos":"G:2|G1:1","cores":"Preto"},{"codigo":"ITA-0018-BEGE","nome":"T-Shirt Malha Pima MM — Bege","categoria":"T-Shirt","marca":"BRAVUS","genero":"Masculino","preco":"79.90","tamanhos":"XG:3","cores":"Bege"},{"codigo":"POL-0021-VERDE","nome":"Polo Tecnológica Bravus — Verde","categoria":"Polo","marca":"BRAVUS","genero":"Masculino","preco":"84.90","tamanhos":"P:1","cores":"Verde"},{"codigo":"POL-0021-BRANCO","nome":"Polo Tecnológica Bravus — Branco","categoria":"Polo","marca":"BRAVUS","genero":"Masculino","preco":"84.90","tamanhos":"GG:2","cores":"Branco"},{"codigo":"POL-0026-CINZA","nome":"Polo Toscano Cavalheiro — Cinza","categoria":"Polo","marca":"CAVALHEIRO","genero":"Masculino","preco":"149.90","tamanhos":"G:1","cores":"Cinza"},{"codigo":"POL-0038-PRETO","nome":"Polo Versa Texturizada Tiggs — Preto","categoria":"Polo","marca":"TIGGS","genero":"Masculino","preco":"134.90","tamanhos":"P:1","cores":"Preto"},{"codigo":"POL-0038-BEGE","nome":"Polo Versa Texturizada Tiggs — Bege","categoria":"Polo","marca":"TIGGS","genero":"Masculino","preco":"134.90","tamanhos":"P:1|G:2","cores":"Bege"},{"codigo":"POL-0054-CAFE","nome":"Polo Classic Dom Thoredo — Café","categoria":"Polo","marca":"DOM THOREDO","genero":"Masculino","preco":"159.90","tamanhos":"P:1|M:1|GG:1","cores":"Café"},{"codigo":"POL-0054-OFFWHI","nome":"Polo Classic Dom Thoredo — Off White","categoria":"Polo","marca":"DOM THOREDO","genero":"Masculino","preco":"159.90","tamanhos":"M:0|G:1|GG:1","cores":"Off White"},{"codigo":"POL-0057-OFFWHI","nome":"Polo em V Bali — Off White","categoria":"Polo","marca":"DALLANDER","genero":"Masculino","preco":"149.90","tamanhos":"G:1","cores":"Off White"},{"codigo":"REG-0016-BRANCO","nome":"Regata Canelada — Branco","categoria":"Regata","marca":"TRIONDAS","genero":"Masculino","preco":"39.90","tamanhos":"P:1|G:1","cores":"Branco"},{"codigo":"REG-0016-PRETO","nome":"Regata Canelada — Preto","categoria":"Regata","marca":"TRIONDAS","genero":"Masculino","preco":"39.90","tamanhos":"M:1","cores":"Preto"},{"codigo":"REG-0059-PRETO","nome":"Regata Machão Bravus — Preto","categoria":"Regata","marca":"TRIONDAS","genero":"Masculino","preco":"89.90","tamanhos":"P:2|M:2|G:2|GG:2","cores":"Preto"},{"codigo":"SHO-0001-PRETO","nome":"Short Linho Premium — Preto","categoria":"Short","marca":"PREMIUM","genero":"Masculino","preco":"59.90","tamanhos":"P:2|M:2|G:1|GG:5|XG:2","cores":"Preto"},{"codigo":"SHO-0003-MARINH","nome":"Short Alfaiataria Florenc — Marinho","categoria":"Short","marca":"FLORENC","genero":"Masculino","preco":"179.90","tamanhos":"P:1|G:1|GG:2","cores":"Marinho"},{"codigo":"TEX-0035-PRETO","nome":"T-Shirt Texturizada Zíper Vogue Tiggs — Preto","categoria":"T-Shirt","marca":"TIGGS","genero":"Masculino","preco":"84.90","tamanhos":"P:1|M:1|G:0","cores":"Preto"},{"codigo":"TSH-0047-OFFWHI","nome":"Tshirt Magnific Luxemburgo Dallander — Off White","categoria":"T-Shirt","marca":"DALLANDER","genero":"Masculino","preco":"129.90","tamanhos":"P:1|M:1|G:1","cores":"Off White"},{"codigo":"TSH-0056-BRANCO","nome":"T-Shirt Peruana Dom Thoredo — Branco","categoria":"T-Shirt","marca":"DOM THOREDO","genero":"Masculino","preco":"99.90","tamanhos":"P:1|GG:1","cores":"Branco"},{"codigo":"BON-0040-PRETO","nome":"Bonés PD — Preto","categoria":"Boné","marca":"BRAVUS","genero":"Masculino","preco":"44.90","tamanhos":"PADRÃO:1","cores":"Preto"},{"codigo":"CSC-0010-VERDEM","nome":"Camisa Social Manga Curta — Verde Militar","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"129.90","tamanhos":"P:1","cores":"Verde Militar"},{"codigo":"CSC-0010-VERDE","nome":"Camisa Social Manga Curta — Verde","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"129.90","tamanhos":"M:1|G:1","cores":"Verde"},{"codigo":"CSC-0010-MARINH","nome":"Camisa Social Manga Curta — Marinho","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"129.90","tamanhos":"G:1","cores":"Marinho"},{"codigo":"CSC-0010-OFFWHI","nome":"Camisa Social Manga Curta — Off White","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"129.90","tamanhos":"GG:1","cores":"Off White"},{"codigo":"CSL-0020-VERDE","nome":"Camisa Social Manga Longa — Verde","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"189.90","tamanhos":"P:1|M:1|G:1|GG:1","cores":"Verde"},{"codigo":"CSL-0020-PRETO","nome":"Camisa Social Manga Longa — Preto","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"189.90","tamanhos":"G:1","cores":"Preto"},{"codigo":"CML-0030-OFFWHI","nome":"Camisa Social Linho — Off White","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"149.90","tamanhos":"P:1|M:1|G:1|GG:1","cores":"Off White"},{"codigo":"CAL-0017-CINZA","nome":"Calça Jeans Basic — Cinza","categoria":"Calça","marca":"VARIADO","genero":"Masculino","preco":"119.90","tamanhos":"48:1","cores":"Cinza"},{"codigo":"CAL-0019-OFFWHI","nome":"Calça Linho — Off White","categoria":"Calça","marca":"VARIADO","genero":"Masculino","preco":"279.90","tamanhos":"38:1|42:3","cores":"Off White"},{"codigo":"CAL-0020-PRETO","nome":"Calça Alfaiataria Reta — Preto","categoria":"Calça","marca":"VARIADO","genero":"Masculino","preco":"259.90","tamanhos":"42:1|44:1","cores":"Preto"},{"codigo":"SAP-0010-OUTROS","nome":"Loaf Couro — Outros","categoria":"Sapataria","marca":"VARIADO","genero":"Masculino","preco":"299.90","tamanhos":"42:1","cores":"Outros"},{"codigo":"SAP-0012-BRANCO","nome":"Sneacker Couro — Branco","categoria":"Sapataria","marca":"VARIADO","genero":"Masculino","preco":"274.90","tamanhos":"42:1","cores":"Branco"},{"codigo":"TSH-0061-BRANCO","nome":"T-Shirt Modal — Branco","categoria":"T-Shirt","marca":"CAVALHEIRO","genero":"Masculino","preco":"149.90","tamanhos":"P:2|G:2","cores":"Branco"},{"codigo":"TSH-0061-VERDEM","nome":"T-Shirt Modal — Verde Militar","categoria":"T-Shirt","marca":"CAVALHEIRO","genero":"Masculino","preco":"149.90","tamanhos":"M:0|GG:2","cores":"Verde Militar"},{"codigo":"TSH-0061-PRETO","nome":"T-Shirt Modal — Preto","categoria":"T-Shirt","marca":"CAVALHEIRO","genero":"Masculino","preco":"149.90","tamanhos":"G:1|GG:1","cores":"Preto"},{"codigo":"BER-0061-PRETO","nome":"Bermuda Mid Motion — Preto","categoria":"Bermuda","marca":"FLORENC","genero":"Masculino","preco":"149.90","tamanhos":"P:1|M:1|G:1","cores":"Preto"},{"codigo":"SHO-0013-PRETO","nome":"Short Mid Bergamo — Preto","categoria":"Short","marca":"FLORENC","genero":"Masculino","preco":"189.90","tamanhos":"P:1|M:1|G:0|GG:1","cores":"Preto"},{"codigo":"BER-0066-CINZA","nome":"Bermuda Tecnológica — Cinza","categoria":"Bermuda","marca":"DOM THOREDO","genero":"Masculino","preco":"209.90","tamanhos":"M:1|G:1","cores":"Cinza"},{"codigo":"BAS-0046-MARINH","nome":"Básica Bravus Cotton — Marinho","categoria":"T-Shirt","marca":"TRIONDAS","genero":"Masculino","preco":"109.90","tamanhos":"P:2|M:2|G:2|GG:1","cores":"Marinho"},{"codigo":"BAS-0046-VINHO","nome":"Básica Bravus Cotton — Vinho","categoria":"T-Shirt","marca":"TRIONDAS","genero":"Masculino","preco":"109.90","tamanhos":"P:2|M:1|G:2|GG:2","cores":"Vinho"},{"codigo":"BAS-0046-CINZA","nome":"Básica Bravus Cotton — Cinza","categoria":"T-Shirt","marca":"TRIONDAS","genero":"Masculino","preco":"109.90","tamanhos":"P:2|M:2|G:2|GG:2","cores":"Cinza"},{"codigo":"BAS-0046-OFFWHI","nome":"Básica Bravus Cotton — Off White","categoria":"T-Shirt","marca":"TRIONDAS","genero":"Masculino","preco":"109.90","tamanhos":"G:2","cores":"Off White"},{"codigo":"BAS-0046-BEGE","nome":"Básica Bravus Cotton — Bege","categoria":"T-Shirt","marca":"TRIONDAS","genero":"Masculino","preco":"109.90","tamanhos":"G:1","cores":"Bege"},{"codigo":"BAS-0019-MARINH","nome":"Básica Bravus Menegotti — Marinho","categoria":"T-Shirt","marca":"HEIBEN","genero":"Masculino","preco":"59.90","tamanhos":"P:3|M:1|G:1|GG:0","cores":"Marinho"},{"codigo":"BAS-0019-VERDEM","nome":"Básica Bravus Menegotti — Verde Militar","categoria":"T-Shirt","marca":"HEIBEN","genero":"Masculino","preco":"59.90","tamanhos":"P:3|M:1","cores":"Verde Militar"},{"codigo":"BAS-0019-VERDE","nome":"Básica Bravus Menegotti — Verde","categoria":"T-Shirt","marca":"HEIBEN","genero":"Masculino","preco":"59.90","tamanhos":"P:2|M:0","cores":"Verde"},{"codigo":"BAS-0019-OFFWHI","nome":"Básica Bravus Menegotti — Off White","categoria":"T-Shirt","marca":"HEIBEN","genero":"Masculino","preco":"59.90","tamanhos":"P:1|M:1|G:1|GG:0","cores":"Off White"},{"codigo":"BAS-0019-CINZA","nome":"Básica Bravus Menegotti — Cinza","categoria":"T-Shirt","marca":"HEIBEN","genero":"Masculino","preco":"59.90","tamanhos":"P:3|M:1","cores":"Cinza"},{"codigo":"BER-0056-CINZA","nome":"Bermuda Alfaiataria Italian Dallander — Cinza","categoria":"Bermuda","marca":"DALLANDER","genero":"Masculino","preco":"159.90","tamanhos":"40:1|42:1|44:1|46:1","cores":"Cinza"},{"codigo":"BER-0008-CAFE","nome":"Bermuda Bellagio Dallander — Café","categoria":"Bermuda","marca":"DALLANDER","genero":"Masculino","preco":"149.90","tamanhos":"40:1|42:2|44:1|46:1","cores":"Café"},{"codigo":"BER-0008-AREIA","nome":"Bermuda Bellagio Dallander — Areia","categoria":"Bermuda","marca":"DALLANDER","genero":"Masculino","preco":"149.90","tamanhos":"40:1","cores":"Areia"},{"codigo":"BER-0008-OFFWHI","nome":"Bermuda Bellagio Dallander — Off White","categoria":"Bermuda","marca":"DALLANDER","genero":"Masculino","preco":"149.90","tamanhos":"40:2|42:0|44:1|46:2","cores":"Off White"},{"codigo":"BER-0061-MARINH","nome":"Bermuda Mid Motion — Marinho","categoria":"Bermuda","marca":"FLORENC","genero":"Masculino","preco":"149.90","tamanhos":"P:1|M:1|G:2","cores":"Marinho"},{"codigo":"BER-0061-VERDE","nome":"Bermuda Mid Motion — Verde","categoria":"Bermuda","marca":"FLORENC","genero":"Masculino","preco":"149.90","tamanhos":"P:1|M:1|G:2","cores":"Verde"},{"codigo":"BER-0061-BRANCO","nome":"Bermuda Mid Motion — Branco","categoria":"Bermuda","marca":"FLORENC","genero":"Masculino","preco":"149.90","tamanhos":"M:1","cores":"Branco"},{"codigo":"BER-0011-CINZA","nome":"Bermuda Sarja — Cinza","categoria":"Bermuda","marca":"BRAVUS","genero":"Masculino","preco":"109.90","tamanhos":"40:1","cores":"Cinza"},{"codigo":"BER-0002-BRANCO","nome":"Bermuda Sarja Florenc — Branco","categoria":"Bermuda","marca":"FLORENC","genero":"Masculino","preco":"139.90","tamanhos":"42:3","cores":"Branco"},{"codigo":"BON-0040-MARINH","nome":"Bonés PD — Marinho","categoria":"Boné","marca":"BRAVUS","genero":"Masculino","preco":"44.90","tamanhos":"PADRÃO:2","cores":"Marinho"},{"codigo":"BON-0040-BEGE","nome":"Bonés PD — Bege","categoria":"Boné","marca":"BRAVUS","genero":"Masculino","preco":"44.90","tamanhos":"PADRÃO:1","cores":"Bege"},{"codigo":"BON-0040-VINHO","nome":"Bonés PD — Vinho","categoria":"Boné","marca":"BRAVUS","genero":"Masculino","preco":"44.90","tamanhos":"PADRÃO:1","cores":"Vinho"},{"codigo":"BON-0040-CINZA","nome":"Bonés PD — Cinza","categoria":"Boné","marca":"BRAVUS","genero":"Masculino","preco":"44.90","tamanhos":"PADRÃO:2","cores":"Cinza"},{"codigo":"CAL-0014-VERDEM","nome":"Calça Alfaiataria — Verde Militar","categoria":"Calça","marca":"ZÉ ATACADO","genero":"Masculino","preco":"209.90","tamanhos":"42:1","cores":"Verde Militar"},{"codigo":"CAL-0014-BEGE","nome":"Calça Alfaiataria — Bege","categoria":"Calça","marca":"ZÉ ATACADO","genero":"Masculino","preco":"209.90","tamanhos":"42:1","cores":"Bege"},{"codigo":"CAL-0015-BEGE","nome":"Calça Sarja — Bege","categoria":"Calça","marca":"BRAVUS","genero":"Masculino","preco":"169.90","tamanhos":"38:2|42:2|44:2|46:2","cores":"Bege"},{"codigo":"CAL-0015-CINZA","nome":"Calça Sarja — Cinza","categoria":"Calça","marca":"BRAVUS","genero":"Masculino","preco":"169.90","tamanhos":"38:1|40:0|48:1","cores":"Cinza"},{"codigo":"CAL-0015-OUTROS","nome":"Calça Sarja — Outros","categoria":"Calça","marca":"BRAVUS","genero":"Masculino","preco":"169.90","tamanhos":"40:2","cores":"Outros"},{"codigo":"CAL-0015-OFFWHI","nome":"Calça Sarja — Off White","categoria":"Calça","marca":"BRAVUS","genero":"Masculino","preco":"169.90","tamanhos":"42:1","cores":"Off White"},{"codigo":"CAL-0015-MARINH","nome":"Calça Sarja — Marinho","categoria":"Calça","marca":"BRAVUS","genero":"Masculino","preco":"169.90","tamanhos":"44:2","cores":"Marinho"},{"codigo":"CAM-0049-BEGE","nome":"Camisa Gola V Niterói Dom Thoredo — Bege","categoria":"Camisa","marca":"DOM THOREDO","genero":"Masculino","preco":"139.90","tamanhos":"P:1|M:1|G:1","cores":"Bege"},{"codigo":"CAM-0049-CAFE","nome":"Camisa Gola V Niterói Dom Thoredo — Café","categoria":"Camisa","marca":"DOM THOREDO","genero":"Masculino","preco":"139.90","tamanhos":"G:2","cores":"Café"},{"codigo":"CSC-0010-AREIA","nome":"Camisa Social Manga Curta — Areia","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"129.90","tamanhos":"P:1","cores":"Areia"},{"codigo":"CSC-0010-BEGE","nome":"Camisa Social Manga Curta — Bege","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"129.90","tamanhos":"P:2","cores":"Bege"},{"codigo":"CSC-0010-OUTROS","nome":"Camisa Social Manga Curta — Outros","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"129.90","tamanhos":"M:2|GG:2","cores":"Outros"},{"codigo":"CSC-0010-CINZA","nome":"Camisa Social Manga Curta — Cinza","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"129.90","tamanhos":"GG:1","cores":"Cinza"},{"codigo":"CSL-0020-CINZA","nome":"Camisa Social Manga Longa — Cinza","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"189.90","tamanhos":"P:1|G:1|GG:1","cores":"Cinza"},{"codigo":"CSL-0020-BRANCO","nome":"Camisa Social Manga Longa — Branco","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"189.90","tamanhos":"G:1","cores":"Branco"},{"codigo":"CSL-0020-OUTROS","nome":"Camisa Social Manga Longa — Outros","categoria":"Social","marca":"VARIADO","genero":"Masculino","preco":"189.90","tamanhos":"G:1|GG:2","cores":"Outros"},{"codigo":"REG-0016-OFFWHI","nome":"Regata Canelada — Off White","categoria":"Regata","marca":"TRIONDAS","genero":"Masculino","preco":"39.90","tamanhos":"M:2|G:2","cores":"Off White"},{"codigo":"REG-0059-VERDEM","nome":"Regata Machão Bravus — Verde Militar","categoria":"Regata","marca":"TRIONDAS","genero":"Masculino","preco":"89.90","tamanhos":"P:2|M:2|G:2","cores":"Verde Militar"},{"codigo":"REG-0059-VERDE","nome":"Regata Machão Bravus — Verde","categoria":"Regata","marca":"TRIONDAS","genero":"Masculino","preco":"89.90","tamanhos":"P:3|G:2|GG:1","cores":"Verde"},{"codigo":"REG-0059-CAFE","nome":"Regata Machão Bravus — Café","categoria":"Regata","marca":"TRIONDAS","genero":"Masculino","preco":"89.90","tamanhos":"P:2|M:2|GG:2","cores":"Café"},{"codigo":"SHO-0013-CINZA","nome":"Short Mid Bergamo — Cinza","categoria":"Short","marca":"FLORENC","genero":"Masculino","preco":"189.90","tamanhos":"P:1|M:0|G:1|GG:1","cores":"Cinza"},{"codigo":"SHO-0001-MARINH","nome":"Short Linho Premium — Marinho","categoria":"Short","marca":"PREMIUM","genero":"Masculino","preco":"59.90","tamanhos":"P:2|G:1|GG:2","cores":"Marinho"},{"codigo":"SHO-0001-VERDEM","nome":"Short Linho Premium — Verde Militar","categoria":"Short","marca":"PREMIUM","genero":"Masculino","preco":"59.90","tamanhos":"P:5|M:1|G:2|GG:2","cores":"Verde Militar"},{"codigo":"SHO-0001-VERDE","nome":"Short Linho Premium — Verde","categoria":"Short","marca":"PREMIUM","genero":"Masculino","preco":"59.90","tamanhos":"P:5|G:1|GG:4","cores":"Verde"},{"codigo":"SHO-0001-AREIA","nome":"Short Linho Premium — Areia","categoria":"Short","marca":"PREMIUM","genero":"Masculino","preco":"59.90","tamanhos":"P:2|M:1|G:6|GG:4|XG:1","cores":"Areia"},{"codigo":"SHO-0001-OUTROS","nome":"Short Linho Premium — Outros","categoria":"Short","marca":"PREMIUM","genero":"Masculino","preco":"59.90","tamanhos":"P:4|G:4|GG:3|XG:2","cores":"Outros"},{"codigo":"SHO-0006-OUTROS","nome":"Short Tactel — Outros","categoria":"Short","marca":"TRIONDAS","genero":"Masculino","preco":"44.90","tamanhos":"44:1","cores":"Outros"},{"codigo":"TSH-0061-OFFWHI","nome":"T-Shirt Modal — Off White","categoria":"T-Shirt","marca":"CAVALHEIRO","genero":"Masculino","preco":"149.90","tamanhos":"P:1|G:2","cores":"Off White"},{"codigo":"TSH-0061-CINZA","nome":"T-Shirt Modal — Cinza","categoria":"T-Shirt","marca":"CAVALHEIRO","genero":"Masculino","preco":"149.90","tamanhos":"P:2|G:0|GG:2","cores":"Cinza"},{"codigo":"BER-0067-BRANCO","nome":"Bermuda de Risca de Giz — Branco","categoria":"Bermuda","marca":"DALLANDER","genero":"Masculino","preco":"134.90","tamanhos":"P:0|M:0|G:1|GG:1","cores":"Branco"},{"codigo":"BER-0067-PRETO","nome":"Bermuda de Risca de Giz — Preto","categoria":"Bermuda","marca":"DALLANDER","genero":"Masculino","preco":"134.90","tamanhos":"P:1|M:0|G:0|GG:1","cores":"Preto"},{"codigo":"BER-0067-MARINH","nome":"Bermuda de Risca de Giz — Marinho","categoria":"Bermuda","marca":"DALLANDER","genero":"Masculino","preco":"134.90","tamanhos":"P:0|M:0|G:1|GG:1","cores":"Marinho"},{"codigo":"POL-0068-PRETO","nome":"Polo Tricot — Preto","categoria":"Polo","genero":"Masculino","preco":"94.90","tamanhos":"P:0|M:0|G:1|GG:1","cores":"Preto"},{"codigo":"POL-0068-MARINH","nome":"Polo Tricot — Marinho","categoria":"Polo","genero":"Masculino","preco":"94.90","tamanhos":"P:0|M:0|G:0|GG:1","cores":"Marinho"},{"codigo":"TEC-0020-PRETO","nome":"T-Shirt Tecnológica — Preto","categoria":"T-Shirt","marca":"BRAVUS","genero":"Masculino","preco":"59.90","tamanhos":"P:0|M:1|G:0|GG:0","cores":"Preto"},{"codigo":"TEC-0020-MARINH","nome":"T-Shirt Tecnológica — Marinho","categoria":"T-Shirt","marca":"BRAVUS","genero":"Masculino","preco":"59.90","tamanhos":"P:0|M:1|G:0|GG:0","cores":"Marinho"},{"codigo":"POL-0068-VERDE","nome":"Polo Tricot — Verde","categoria":"Polo","genero":"Masculino","preco":"94.90","tamanhos":"M:1|G:1","cores":"Verde"},{"codigo":"POL-0068-OFFWHI","nome":"Polo Tricot — Off White","categoria":"Polo","genero":"Masculino","preco":"94.90","tamanhos":"M:1|G:1","cores":"Off White"},{"codigo":"POL-0068-VINHO","nome":"Polo Tricot — Vinho","categoria":"Polo","genero":"Masculino","preco":"94.90","tamanhos":"M:2","cores":"Vinho"},{"codigo":"POL-0068-CINZA","nome":"Polo Tricot — Cinza","categoria":"Polo","genero":"Masculino","preco":"94.90","tamanhos":"GG:1","cores":"Cinza"},{"codigo":"ITA-0018-MARINH","nome":"T-Shirt Malha Pima MM — Marinho","categoria":"T-Shirt","marca":"BRAVUS","genero":"Masculino","preco":"79.90","tamanhos":"G:1","cores":"Marinho"},{"codigo":"ITA-0018-CAFE","nome":"T-Shirt Malha Pima MM — Café","categoria":"T-Shirt","marca":"BRAVUS","genero":"Masculino","preco":"79.90","tamanhos":"G:1","cores":"Café"},{"codigo":"TSH-0069-VERDEM","nome":"T-Shirt Promo — Verde Militar","categoria":"T-Shirt","genero":"Masculino","preco":"50.00","tamanhos":"P:1","cores":"Verde Militar"},{"codigo":"TSH-0069-VERDE","nome":"T-Shirt Promo — Verde","categoria":"T-Shirt","genero":"Masculino","preco":"50.00","tamanhos":"M:2|G:4","cores":"Verde"},{"codigo":"TEC-0020-CINZA","nome":"T-Shirt Tecnológica — Cinza","categoria":"T-Shirt","marca":"BRAVUS","genero":"Masculino","preco":"59.90","tamanhos":"GG:1","cores":"Cinza"},{"codigo":"POL-0071-MARINH","nome":"Polo Basic — Marinho","categoria":"Polo","genero":"Masculino","preco":"84.90","tamanhos":"P:0|M:1|G:1|GG:1|XG:0|G1:0|G2:0|G3:0","cores":"Marinho"},{"codigo":"POL-0071-OUTROS","nome":"Polo Basic — Outros","categoria":"Polo","genero":"Masculino","preco":"84.90","tamanhos":"M:1","cores":"Outros"},{"codigo":"POL-0071-OFFWHI","nome":"Polo Basic — Off White","categoria":"Polo","genero":"Masculino","preco":"84.90","tamanhos":"GG:1","cores":"Off White"},{"codigo":"POL-0071-VERDEM","nome":"Polo Basic — Verde Militar","categoria":"Polo","genero":"Masculino","preco":"84.90","tamanhos":"G:1|GG:1","cores":"Verde Militar"},{"codigo":"TSH-0056-MARINH","nome":"T-Shirt Peruana Dom Thoredo — Marinho","categoria":"T-Shirt","marca":"DOM THOREDO","genero":"Masculino","preco":"99.90","tamanhos":"P:0|GG:1","cores":"Marinho"},{"codigo":"TSH-0056-OFFWHI","nome":"T-Shirt Peruana Dom Thoredo — Off White","categoria":"T-Shirt","marca":"DOM THOREDO","genero":"Masculino","preco":"99.90","tamanhos":"P:1|GG:1","cores":"Off White"},{"codigo":"TEX-0035-BEGE","nome":"T-Shirt Texturizada Zíper Vogue Tiggs — Bege","categoria":"T-Shirt","marca":"TIGGS","genero":"Masculino","preco":"84.90","tamanhos":"P:0|M:2","cores":"Bege"},{"codigo":"620-PRETO","nome":"T-shirt Modal Basic — Preto","categoria":"T-Shirt","marca":"Bravus","genero":"Masculino","preco":"109.90","tamanhos":"P:2|M:1|G:2|GG:2|XG:0","cores":"Preto"},{"codigo":"630-MARINH","nome":"T-shirt Modal Basic — Marinho","categoria":"T-Shirt","marca":"Bravus","genero":"Masculino","preco":"109.90","tamanhos":"P:2|M:1|G:2|GG:2|XG:0","cores":"Marinho"},{"codigo":"635-BRANCO","nome":"Polo Pima — Branco","categoria":"Polo","marca":"Florenc","genero":"Masculino","preco":"169.90","tamanhos":"P:0|M:1|G:1|GG:0|XG:0","cores":"Branco"},{"codigo":"640-CAFE","nome":"Polo Pima — Café","categoria":"Polo","marca":"Florenc","genero":"Masculino","preco":"169.90","tamanhos":"P:1|M:1|G:2|GG:0|XG:0","cores":"Café"}],"bravinhos":[{"codigo":"5914","nome":"Conj AZ Planeta","categoria":"Conjunto","marca":"Boca Grande","genero":"Masculino","preco":"80.77","tamanhos":"4:1|6:1|8:1"},{"codigo":"5892","nome":"Conj Az Monalisa","categoria":"Conjunto","marca":"Boca Grande","genero":"Feminino","preco":"154.73","tamanhos":"4:1|6:1|8:1"},{"codigo":"5917","nome":"Conj BO Branco","categoria":"Conjunto","marca":"Boca Grande","genero":"Masculino","preco":"198.49","tamanhos":"4:1|6:1|8:1"},{"codigo":"5883","nome":"Conj Branco","categoria":"Conjunto","marca":"Boca Grande","genero":"Feminino","preco":"144.52","tamanhos":"4:0:144.52|6:1:144.52|8:2:144.52|10:1:103.37|12:1:103.37"},{"codigo":"5920","nome":"Conj LR Sevilha","categoria":"Conjunto","marca":"Boca Grande","genero":"Masculino","preco":"131.56","tamanhos":"4:0:125.33|6:1:125.33|8:1:125.33|10:1:131.56"},{"codigo":"5886","nome":"Conj Off White","categoria":"Conjunto","marca":"Boca Grande","genero":"Feminino","preco":"84.19","tamanhos":"4:2|6:2|8:2"},{"codigo":"5877","nome":"Conj Rosa","categoria":"Conjunto","marca":"Boca Grande","genero":"Feminino","preco":"147.86","tamanhos":"4:2|6:2|8:2"},{"codigo":"5895","nome":"Shorts Preto","categoria":"Short","marca":"Boca Grande","genero":"Feminino","preco":"27.72","tamanhos":"6:1|8:1|10:1"},{"codigo":"5898","nome":"Top Preto","categoria":"Top","marca":"Boca Grande","genero":"Feminino","preco":"26.80","tamanhos":"4:1|6:1|8:1|10:1"},{"codigo":"5908","nome":"Vestido AZ Mineral","categoria":"Vestido","marca":"Boca Grande","genero":"Feminino","preco":"132.54","tamanhos":"4:1|6:1|8:1"},{"codigo":"5905","nome":"Vestido VD Capim Limão","categoria":"Vestido","marca":"Boca Grande","genero":"Feminino","preco":"71.68","tamanhos":"6:1:71.68|8:1:71.68|10:1:68.07"},{"codigo":"5902","nome":"Vestido VM Chama","categoria":"Vestido","marca":"Boca Grande","genero":"Feminino","preco":"90.04","tamanhos":"4:1|6:1|8:1"},{"codigo":"5215","nome":"Conj Camiseta/Bermuda Moletinho","categoria":"Conjunto","marca":"Brandili","genero":"Masculino","preco":"133.88","tamanhos":"6:2:60.23|10:4:126.00|12:4:133.88|14:1:112.22"},{"codigo":"5270","nome":"Conj Regata/Bermuda Moletinho","categoria":"Conjunto","marca":"Brandili","genero":"Masculino","preco":"89.58","tamanhos":"4:1:69.99|6:2:89.58|8:2:89.58|10:2:89.58|12:1:71.63"},{"codigo":"5187","nome":"Conj. Blusa Blusa e Saia Cotton","categoria":"Conjunto","marca":"Brandili","genero":"Feminino","preco":"120.48","tamanhos":"12:1"},{"codigo":"5169","nome":"Conj. Blusa Meia Malha/Shots Moletinho","categoria":"Conjunto","marca":"Brandili","genero":"Feminino","preco":"151.20","tamanhos":"4:1:151.20|6:1:151.20|8:1:151.20|10:0:112.22|12:0:112.22|14:1:112.22|16:0:112.22"},{"codigo":"5188","nome":"Conj. Blusa e Shorts Viscose","categoria":"Conjunto","marca":"Brandili","genero":"Feminino","preco":"163.00","tamanhos":"10:1|12:0|14:1"},{"codigo":"5192","nome":"Conj. Camiseta e Bermuda","categoria":"Conjunto","marca":"Brandili","genero":"Masculino","preco":"121.29","tamanhos":"6:1|10:1"},{"codigo":"5199","nome":"Conj. Regata e Bermuda","categoria":"Conjunto","marca":"Brandili","genero":"Masculino","preco":"85.05","tamanhos":"4:1|6:1|8:1|10:1"},{"codigo":"4895","nome":"Batinha Teen Rosa","categoria":"Batinha","marca":"Gente Inocente","genero":"Feminino","preco":"85.50","tamanhos":"M:1|G:1"},{"codigo":"4897","nome":"Bermuda Kids Amarelo","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"62.22","tamanhos":"1:1:62.22|2:1:61.20|4:1:62.22|6:1:62.22"},{"codigo":"4901","nome":"Bermuda Kids Cinza","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"62.22","tamanhos":"2:1|4:1|6:1"},{"codigo":"4904","nome":"Bermuda Kids Laranja","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"62.22","tamanhos":"2:1|4:1|6:1|8:1"},{"codigo":"4908","nome":"Bermuda Kids Verde","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"62.22","tamanhos":"8:1"},{"codigo":"4909","nome":"Bermuda Kids Vinho","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"62.22","tamanhos":"1:1"},{"codigo":"4911","nome":"Bermuda Teen Amarelo","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"100.80","tamanhos":"12:1"},{"codigo":"4912","nome":"Bermuda Teen Azul","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"100.80","tamanhos":"12:1"},{"codigo":"4913","nome":"Bermuda Teen Azul Escuro","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"60.39","tamanhos":"8:1"},{"codigo":"4923","nome":"Bermuda Teen Azul Marinho","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"80.64","tamanhos":"14:1"},{"codigo":"4914","nome":"Bermuda Teen Azul/Petroli","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"80.64","tamanhos":"10:1"},{"codigo":"4915","nome":"Bermuda Teen Coral","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"80.64","tamanhos":"14:1"},{"codigo":"4917","nome":"Bermuda Teen Estam/Marrom","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"60.39","tamanhos":"10:1"},{"codigo":"4918","nome":"Bermuda Teen Estam/Verde","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"60.39","tamanhos":"10:1"},{"codigo":"4916","nome":"Bermuda Teen Estamp Bege","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"60.39","tamanhos":"10:1"},{"codigo":"4919","nome":"Bermuda Teen Jeans","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"109.80","tamanhos":"12:1"},{"codigo":"4920","nome":"Bermuda Teen Kaki","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"97.50","tamanhos":"10:1|12:1"},{"codigo":"4922","nome":"Bermuda Teen Laranja","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"114.24","tamanhos":"12:1"},{"codigo":"4924","nome":"Bermuda Teen Marinho","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"114.24","tamanhos":"10:1|12:1"},{"codigo":"4926","nome":"Bermuda Teen Mostarda","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"114.24","tamanhos":"14:1"},{"codigo":"4927","nome":"Bermuda Teen Off White","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"114.24","tamanhos":"8:1:97.50|14:1:114.24"},{"codigo":"4930","nome":"Bermuda Teen Preta","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"99.00","tamanhos":"8:1|14:1"},{"codigo":"4932","nome":"Bermuda Teen Salmon","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"100.80","tamanhos":"14:1"},{"codigo":"4933","nome":"Bermuda Teen Telha","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"100.80","tamanhos":"14:1"},{"codigo":"4934","nome":"Bermuda Teen Verde","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"100.80","tamanhos":"12:4|14:2"},{"codigo":"4941","nome":"Bermuda Teen Vinho","categoria":"Bermuda","marca":"Gente Inocente","genero":"Masculino","preco":"100.80","tamanhos":"10:1"},{"codigo":"4970","nome":"Blusa Kids Lilás","categoria":"Blusa","marca":"Gente Inocente","genero":"Feminino","preco":"81.41","tamanhos":"M:1:81.41|GG:1:70.20"},{"codigo":"4969","nome":"Blusa Kids Off White","categoria":"Blusa","marca":"Gente Inocente","genero":"Feminino","preco":"94.08","tamanhos":"P:1:65.52|M:1:94.08|G:1:84.24"},{"codigo":"4973","nome":"Blusa Teen Laranja","categoria":"Blusa","marca":"Gente Inocente","genero":"Feminino","preco":"81.41","tamanhos":"P:1"},{"codigo":"4976","nome":"Blusa Teen Off White","categoria":"Blusa","marca":"Gente Inocente","genero":"Feminino","preco":"176.80","tamanhos":"M:1:176.80|G:1:81.41"},{"codigo":"5864","nome":"Bomber Kids Amarelo","categoria":"Bomber","marca":"Gente Inocente","genero":"Feminino","preco":"156.80","tamanhos":"G:1"},{"codigo":"5858","nome":"Calça Teen Jeans","categoria":"Calça","marca":"Gente Inocente","genero":"Masculino","preco":"165.60","tamanhos":"8:1:165.60|14:1:148.32"},{"codigo":"5416","nome":"Cropped Kids BEGE","categoria":"Cropped","marca":"Gente Inocente","genero":"Feminino","preco":"77.00","tamanhos":"G:1"},{"codigo":"5866","nome":"Cropped Teen Azul","categoria":"Cropped","marca":"Gente Inocente","genero":"Feminino","preco":"82.60","tamanhos":"M:1"},{"codigo":"5473","nome":"Cropped Teen Jeans","categoria":"Cropped","marca":"Gente Inocente","genero":"Feminino","preco":"75.60","tamanhos":"P:1|M:1"},{"codigo":"5414","nome":"Cropped Teen Rosa","categoria":"Cropped","marca":"Gente Inocente","genero":"Feminino","preco":"82.32","tamanhos":"P:0|M:1"},{"codigo":"5412","nome":"Jardineira Teen Jeans","categoria":"Jardineira","marca":"Gente Inocente","genero":"Feminino","preco":"192.24","tamanhos":"10:1|12:1"},{"codigo":"5853","nome":"Polo Teen Verde","categoria":"Polo","marca":"Gente Inocente","genero":"Masculino","preco":"120.96","tamanhos":"12:1"},{"codigo":"5771","nome":"Short Kids Amarelo","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"5:1"},{"codigo":"5441","nome":"Short Kids Azul","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"5:1"},{"codigo":"5772","nome":"Short Kids Bege","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"4:1"},{"codigo":"5446","nome":"Short Kids Coral","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"2:1"},{"codigo":"5430","nome":"Short Kids Laranja","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"4:1"},{"codigo":"5438","nome":"Short Kids Pink","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"3:1"},{"codigo":"5439","nome":"Short Kids Verde","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"3:1|4:1"},{"codigo":"5773","nome":"Short Kids Vermelho","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"1:1"},{"codigo":"5452","nome":"Short Teen Amarelo","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"14:1"},{"codigo":"5865","nome":"Short Teen Azul","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"97.50","tamanhos":"M:1"},{"codigo":"5432","nome":"Short Teen Coral","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"6:1|14:1"},{"codigo":"5428","nome":"Short Teen Diversas","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"8:2"},{"codigo":"5449","nome":"Short Teen Diversos","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"G:1|6:1"},{"codigo":"5417","nome":"Short Teen Jeans","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"127.44","tamanhos":"8:5:127.44|10:3:103.50|12:3:103.50|14:3:127.44|16:4:127.44"},{"codigo":"5461","nome":"Short Teen Kaki","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"8:1|14:1"},{"codigo":"5462","nome":"Short Teen Mostarda","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"60.00","tamanhos":"6:1|16:1"},{"codigo":"5450","nome":"Short Teen Rosa","categoria":"Short","marca":"Gente Inocente","genero":"Feminino","preco":"127.46","tamanhos":"M:1:127.44|G:1:127.46|8:1:60.00"},{"codigo":"5855","nome":"Tshirt Kids Azul Bebê","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"110.40","tamanhos":"6:1"},{"codigo":"5740","nome":"Tshirt Kids Bege","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"110.40","tamanhos":"6:1"},{"codigo":"5747","nome":"Tshirt Teen Amarelo","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"127.44","tamanhos":"8:1"},{"codigo":"5746","nome":"Tshirt Teen Azul","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"127.44","tamanhos":"14:1"},{"codigo":"5854","nome":"Tshirt Teen Doce de Leite","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"127.44","tamanhos":"10:1"},{"codigo":"5857","nome":"Tshirt Teen Laranja","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"109.44","tamanhos":"14:1"},{"codigo":"5738","nome":"Tshirt Teen Marrom","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"117.80","tamanhos":"8:1"},{"codigo":"5741","nome":"Tshirt Teen Marron","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"86.80","tamanhos":"10:1"},{"codigo":"5737","nome":"Tshirt Teen Off White","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"123.12","tamanhos":"12:2"},{"codigo":"5744","nome":"Tshirt Teen Preta","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"92.16","tamanhos":"8:1"},{"codigo":"5736","nome":"Tshirt Teen Verde","categoria":"Tshirt","marca":"Gente Inocente","genero":"Masculino","preco":"105.60","tamanhos":"10:1:92.16|12:1:105.60"},{"codigo":"4942","nome":"Biquini Inf Lara Love","categoria":"Biquíni","marca":"Upa Lelê","genero":"Feminino","preco":"119.76","tamanhos":"4:1|8:1"},{"codigo":"4944","nome":"Biquini Inf Letícia Copacabana","categoria":"Biquíni","marca":"Upa Lelê","genero":"Feminino","preco":"119.76","tamanhos":"6:1"},{"codigo":"4945","nome":"Biquini Inf Letícia Mar de Nós","categoria":"Biquíni","marca":"Upa Lelê","genero":"Feminino","preco":"129.24","tamanhos":"10:1"},{"codigo":"4946","nome":"Biquini Inf Liz Flor","categoria":"Biquíni","marca":"Upa Lelê","genero":"Feminino","preco":"119.88","tamanhos":"2:1|6:1|10:1|14:1"},{"codigo":"4949","nome":"Biquini Inf Liz Nuvens","categoria":"Biquíni","marca":"Upa Lelê","genero":"Feminino","preco":"119.88","tamanhos":"4:1|8:1|12:1"},{"codigo":"4956","nome":"Blusa Básica Inf Azul Marinho","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"40.00","tamanhos":"2:1"},{"codigo":"4957","nome":"Blusa Básica Inf Fire Orange","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"40.00","tamanhos":"2:1"},{"codigo":"4960","nome":"Blusa Básica Inf Verde Clássico","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"40.00","tamanhos":"10:1"},{"codigo":"4961","nome":"Blusa Básica Inf Verde Lima Acid","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"40.00","tamanhos":"6:1"},{"codigo":"4959","nome":"Blusa Básica Inf Verde Água","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"40.00","tamanhos":"8:2"},{"codigo":"4962","nome":"Blusa Básica Inf Vermelho Chivas","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"40.00","tamanhos":"4:1"},{"codigo":"4963","nome":"Blusa Básica Juv Caramelo","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"57.20","tamanhos":"14:1"},{"codigo":"4966","nome":"Blusa Básica Juv Preta","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"57.20","tamanhos":"12:1"},{"codigo":"4979","nome":"Blusa Inf Tricô Blue","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"50.00","tamanhos":"8:1"},{"codigo":"4986","nome":"Blusa Juv Tricô","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"54.00","tamanhos":"14:1"},{"codigo":"4985","nome":"Blusa Juv Tricô Macadame","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"54.00","tamanhos":"12:1"},{"codigo":"4987","nome":"Blusa Polo Inf Amarela","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"71.82","tamanhos":"6:1"},{"codigo":"4988","nome":"Blusa Polo Inf Cinza","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"71.82","tamanhos":"2:1"},{"codigo":"4989","nome":"Blusa Polo Inf Off","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"71.82","tamanhos":"8:1"},{"codigo":"4992","nome":"Blusa Polo Juv Cinza","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"77.22","tamanhos":"14:1"},{"codigo":"4993","nome":"Blusa Polo Juv Off","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"77.22","tamanhos":"12:1"},{"codigo":"5359","nome":"Blusa UV Inf Azul Marinho","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"54.00","tamanhos":"10:1"},{"codigo":"5358","nome":"Blusa UV Inf Branca","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"54.00","tamanhos":"8:1"},{"codigo":"5356","nome":"Blusa UV Juv Girassol","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"63.00","tamanhos":"12:1"},{"codigo":"5357","nome":"Blusa UV Juv Páprica","categoria":"Blusa","marca":"Upa Lelê","genero":"Masculino","preco":"63.00","tamanhos":"14:1"},{"codigo":"5363","nome":"Coleção Copa","categoria":"Coleção Copa","marca":"Upa Lelê","genero":"Masculino","preco":"66.00","tamanhos":"6:1:60.00|8:1:60.00|10:1:60.00|12:1:66.00|14:1:66.00"},{"codigo":"5280","nome":"Conj Aurora","categoria":"Conjunto","marca":"Upa Lelê","genero":"Feminino","preco":"119.60","tamanhos":"2:1|6:0|10:1|14:1"},{"codigo":"5278","nome":"Conj Maria","categoria":"Conjunto","marca":"Upa Lelê","genero":"Feminino","preco":"95.22","tamanhos":"8:1|14:1"},{"codigo":"5351","nome":"Maiô Infantil Melissa Colchas","categoria":"Maiô","marca":"Upa Lelê","genero":"Feminino","preco":"109.80","tamanhos":"8:1"},{"codigo":"5292","nome":"Maiô Infantil Rafaela Flores","categoria":"Maiô","marca":"Upa Lelê","genero":"Feminino","preco":"109.98","tamanhos":"6:1"},{"codigo":"5328","nome":"Maiô Juvenil Melissa Colchas","categoria":"Maiô","marca":"Upa Lelê","genero":"Feminino","preco":"109.80","tamanhos":"2:1|12:1"},{"codigo":"5360","nome":"Short Sarja","categoria":"Short","marca":"Upa Lelê","genero":"Masculino","preco":"79.80","tamanhos":"6:1|10:1"},{"codigo":"5408","nome":"Short Tactel Infantil Arabesco","categoria":"Short","marca":"Upa Lelê","genero":"Masculino","preco":"44.00","tamanhos":"2:1"},{"codigo":"5404","nome":"Short Tactel Infantil Caramelo","categoria":"Short","marca":"Upa Lelê","genero":"Masculino","preco":"44.00","tamanhos":"8:1"},{"codigo":"5407","nome":"Short Tactel Infantil Carangueijo","categoria":"Short","marca":"Upa Lelê","genero":"Masculino","preco":"44.00","tamanhos":"4:1"},{"codigo":"5403","nome":"Short Tactel Infantil Coq Verde","categoria":"Short","marca":"Upa Lelê","genero":"Masculino","preco":"44.00","tamanhos":"10:1"},{"codigo":"5405","nome":"Short Tactel Infantil Dinos","categoria":"Short","marca":"Upa Lelê","genero":"Masculino","preco":"44.00","tamanhos":"2:1"},{"codigo":"5400","nome":"Short Tactel Infantil Spirit","categoria":"Short","marca":"Upa Lelê","genero":"Masculino","preco":"44.00","tamanhos":"8:1"},{"codigo":"5402","nome":"Short Tactel Infantil Tubarão Martelo","categoria":"Short","marca":"Upa Lelê","genero":"Masculino","preco":"44.00","tamanhos":"6:1"},{"codigo":"5373","nome":"Sunga Infantil Carangueijo","categoria":"Sunga","marca":"Upa Lelê","genero":"Masculino","preco":"59.48","tamanhos":"2:1"},{"codigo":"5393","nome":"Sunga Infantil Copacabana","categoria":"Sunga","marca":"Upa Lelê","genero":"Masculino","preco":"59.48","tamanhos":"8:1"},{"codigo":"5397","nome":"Sunga Infantil Coqueiro Blue","categoria":"Sunga","marca":"Upa Lelê","genero":"Masculino","preco":"59.48","tamanhos":"Único:1"},{"codigo":"5396","nome":"Sunga Infantil Dinos","categoria":"Sunga","marca":"Upa Lelê","genero":"Masculino","preco":"59.48","tamanhos":"6:1"},{"codigo":"5394","nome":"Sunga Infantil Tubarão Martelo","categoria":"Sunga","marca":"Upa Lelê","genero":"Masculino","preco":"59.48","tamanhos":"4:1"},{"codigo":"5399","nome":"Sunga Juvenil Mare de Verão","categoria":"Sunga","marca":"Upa Lelê","genero":"Masculino","preco":"67.98","tamanhos":"14:1"},{"codigo":"5398","nome":"Sunga Juvenil Safari","categoria":"Sunga","marca":"Upa Lelê","genero":"Masculino","preco":"67.98","tamanhos":"12:1"},{"codigo":"510047","nome":"Kit Bravinhos","categoria":"Conjunto","marca":"Variado","genero":"Masculino","preco":"32.50","tamanhos":"RN:0|P:2|M:7|G:5|1:7|2:0|4:0|6:0|8:0"},{"codigo":"813193","nome":"Kit Bravinhos 02","categoria":"Conjunto","marca":"Variado","genero":"Masculino","preco":"35.40","tamanhos":"RN:4|P:6|M:13|G:5|1:7|2:0|4:0|6:0|8:0"},{"codigo":"492282","nome":"Kit Bravinhos 03","categoria":"Conjunto","marca":"Variado","genero":"Masculino","preco":"35.00","tamanhos":"RN:23|P:3|M:0|G:0|1:0|2:0|4:0|6:0|8:0"},{"codigo":"474524","nome":"Conj Tapa Fralda","categoria":"Conjunto","marca":"Lik","genero":"Masculino","preco":"45.90","tamanhos":"RN:1|P:0|M:0|G:0|1:0|2:0|4:0|6:0|8:0"},{"codigo":"331599","nome":"Kit Bravinhos 04","categoria":"Conjunto","marca":"Variado","genero":"Masculino","preco":"45.00","tamanhos":"RN:0|P:0|M:0|G:0|1:0|2:15|4:7|6:7|8:0"},{"codigo":"366460","nome":"Conj. Bravinhos","categoria":"Conjunto","marca":"Vespper Kids","genero":"Masculino","preco":"53.55","tamanhos":"RN:0|P:0|M:0|G:0|1:0|2:0|4:2|6:4|8:3|10:3"},{"codigo":"727810","nome":"Vestido Bravinhos","categoria":"Conjunto","marca":"Vespper Kids","genero":"Masculino","preco":"53.55","tamanhos":"RN:0|P:0|M:0|G:0|1:0|2:4|4:4|6:3|8:4|10:0"},{"codigo":"116470","nome":"Body Canelado","categoria":"Body","marca":"Lik","genero":"Masculino","preco":"29.70","tamanhos":"RN:0|P:14|M:5|G:7|1:0|2:0|4:0|6:0|8:0|10:0"},{"codigo":"777239","nome":"Conj Amada","categoria":"Conjunto","marca":"Amada","genero":"Masculino","preco":"102.90","tamanhos":"RN:0|P:0|M:3|G:0|1:0|2:0|4:0|6:0|8:0|10:0"},{"codigo":"731959","nome":"Macacão","categoria":"Macacão","marca":"Lik","genero":"Masculino","preco":"56.00","tamanhos":"RN:0|P:0|M:0|G:0|1:0|2:0|4:0|6:3|8:0|10:0"},{"codigo":"176957","nome":"Pagão Teruty","categoria":"Pagão","marca":"Teruthy","genero":"Masculino","preco":"100.80","tamanhos":"RN:1|P:0|M:0|G:0|1:0|2:0|4:0|6:0|8:0|10:0"},{"codigo":"815388","nome":"Pagão Basic","categoria":"Pagão","marca":"Tok & Art","genero":"Masculino","preco":"77.50","tamanhos":"RN:1|P:0|M:0|G:0|1:0|2:0|4:0|6:0|8:0|10:0"},{"codigo":"281645","nome":"Romper Teruthy","categoria":"Romper","marca":"Teruthy","genero":"Masculino","preco":"69.60","tamanhos":"RN:0|P:0|M:7|G:0|1:0|2:0|4:0|6:0|8:0|10:0"},{"codigo":"462483","nome":"Macacão Lik","categoria":"Macacão","marca":"Lik","genero":"Masculino","preco":"74.80","tamanhos":"RN:0|P:0|M:4|G:0|1:0|2:0|4:0|6:0|8:0|10:0"},{"codigo":"473100","nome":"Vestido Lik","categoria":"Vestido","marca":"Lik","genero":"Masculino","preco":"74.80","tamanhos":"RN:0|P:2|M:4|G:8|1:0|2:0|4:0|6:0|8:0|10:0"},{"codigo":"552007","nome":"Conj Lik Calça+Bata","categoria":"Conjunto","marca":"Lik","genero":"Masculino","preco":"66.00","tamanhos":"RN:0|P:0|M:3|G:0|1:0|2:0|4:0|6:0|8:0|10:0"},{"codigo":"566541","nome":"Vestido Teruthy","categoria":"Vestido","marca":"Teruthy","genero":"Masculino","preco":"85.10","tamanhos":"RN:0|P:1|M:2|G:3|1:0|2:0|4:0|6:0|8:0|10:0"},{"codigo":"303333","nome":"Jardineira","categoria":"Jardineira","marca":"Teruthy","genero":"Feminino","preco":"96.60","tamanhos":"RN:0|P:0|M:0|G:0|1:0|2:0|4:1|6:0|8:0|10:0"},{"codigo":"111116","nome":"Conj Lik Fem","categoria":"Conjunto","marca":"Lik","genero":"Masculino","preco":"89.60","tamanhos":"RN:0|P:0|M:0|G:0|1:0|2:0|4:0|6:3|8:0|10:0"},{"codigo":"500723","nome":"Conj Lik Body+Calça","categoria":"Conjunto","marca":"Lik","genero":"Masculino","preco":"57.20","tamanhos":"RN:0|P:0|M:3|G:0|1:0|2:0|4:0|6:0|8:0|10:0"},{"codigo":"999350","nome":"Sandálias Bravinhos","categoria":"Sapataria","marca":"Variado","genero":"Masculino","preco":"25.00","tamanhos":"Padrão:8"},{"codigo":"999352","nome":"Tiaras Bravinhos","categoria":"Acessórios","marca":"Variado","genero":"Unissex","preco":"19.20","tamanhos":"Padrão:9"},{"codigo":"999353","nome":"Kit RN (Toca, Meia e Luva)","categoria":"Acessórios","marca":"Variado","genero":"Masculino","preco":"24.90","tamanhos":"Padrão:3"},{"codigo":"999356","nome":"Meinhas Premium","categoria":"Acessórios","marca":"Variado","genero":"Masculino","preco":"24.90","tamanhos":"Padrão:9"},{"codigo":"999358","nome":"Meinhas Antiderrapantes","categoria":"Acessórios","marca":"Variado","genero":"Feminino","preco":"24.90","tamanhos":"Padrão:10"},{"codigo":"999360","nome":"Naninha","categoria":"Acessórios","marca":"Variado","genero":"Feminino","preco":"24.90","tamanhos":"Padrão:2"},{"codigo":"999362","nome":"Conj Vesper Kids","categoria":"Conjunto","marca":"Vesper Kids","genero":"Feminino","preco":"45.00","tamanhos":"2:0|4:1|6:3|8:2|10:3"},{"codigo":"999367","nome":"Saída de Maternidade","categoria":"Kit RN","marca":"Variado","genero":"Masculino","preco":"94.50","tamanhos":"Padrão:3"}]};
+
+/* =========================================================
+   UTILITÁRIOS
+   ========================================================= */
+const $ = s => document.querySelector(s);
+const brl = v => 'R$ ' + Number(v||0).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const num = v => { if(v===''||v==null) return 0; if(typeof v==='number') return v;
+  let s=String(v).replace(/[R$\s]/g,''); if(s.includes(',')) s=s.replace(/\./g,'').replace(',','.'); return parseFloat(s)||0; };
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sim = v => /^(sim|s|x|1|true|yes)$/i.test(String(v||'').trim());
+const iniciais = n => String(n||'').split(/\s+/).filter(w=>w.length>2).slice(0,2).map(w=>w[0]).join('').toUpperCase() || '•';
+const store = {
+  get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+};
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('on'),1800); }
+
+/* Converte link do Google Drive em link de imagem direta */
+function linkFoto(url){
+  url=String(url||'').trim(); if(!url) return '';
+  const m = url.match(/\/d\/([\w-]{20,})/) || url.match(/[?&]id=([\w-]{20,})/);
+  if(/drive\.google\.com/.test(url) && m) return 'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';
+  return url;
+}
+
+/* Lê CSV (com aspas) */
+function parseCSV(txt){
+  const linhas=[]; let row=[], cel='', q=false;
+  for(let i=0;i<txt.length;i++){
+    const c=txt[i];
+    if(q){ if(c==='"'){ if(txt[i+1]==='"'){cel+='"';i++;} else q=false; } else cel+=c; }
+    else if(c==='"') q=true;
+    else if(c===','){ row.push(cel); cel=''; }
+    else if(c==='\n'||c==='\r'){ if(c==='\r'&&txt[i+1]==='\n') i++; row.push(cel); linhas.push(row); row=[]; cel=''; }
+    else cel+=c;
+  }
+  if(cel!==''||row.length){ row.push(cel); linhas.push(row); }
+  const cab = (linhas.shift()||[]).map(h=>h.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,'_'));
+  return linhas.filter(r=>r.some(c=>c.trim())).map(r=>Object.fromEntries(cab.map((h,i)=>[h,(r[i]??'').trim()])));
+}
+
+/* Padroniza um produto */
+function normalizar(p){
+  const tams = String(p.tamanhos||'').split(/[|;]/).map(t=>t.trim()).filter(Boolean).map(t=>{
+    const [n,q,pp] = t.split(':'); return {n:n.trim(), q: q===undefined ? 1 : parseInt(q)||0, p: pp ? num(pp) : 0};
+  });
+  const preco=num(p.preco), promo=num(p.preco_promo);
+  const fin = promo>0 && promo<preco ? promo : preco;
+  tams.forEach(t=>{ if(!t.p) t.p = fin; });
+  const disp = tams.filter(t=>t.q>0).map(t=>t.p);
+  const pmin = disp.length ? Math.min(...disp) : fin, pmax = disp.length ? Math.max(...disp) : fin;
+  return {
+    codigo:String(p.codigo||p.nome), nome:p.nome||'', categoria:p.categoria||'Outros', marca:p.marca||'',
+    preco, promo: promo>0 && promo<preco ? promo : 0, tamanhos:tams, pmin, varia: pmax-pmin>0.009, genero:p.genero||'',
+    cores:p.cores||'', foto:linkFoto(p.foto), destaque:sim(p.destaque),
+    ativo: p.ativo===undefined || p.ativo==='' ? true : sim(p.ativo),
+    estoque: tams.reduce((s,t)=>s+t.q,0)
+  };
+}
+
+/* =========================================================
+   ESTADO
+   ========================================================= */
+const estado = { loja:null, produtos:{}, cat:'Todos', gen:'Todos', busca:'', ordem:'padrao', sel:{} };
+const carrinhos = { bravus: store.get('sacola_bravus',[]), bravinhos: store.get('sacola_bravinhos',[]) };
+
+async function carregar(loja){
+  if(estado.produtos[loja]) return estado.produtos[loja];
+  const url = CONFIG[loja].planilhaCSV;
+  let lista = CATALOGO_INICIAL[loja];
+  if(url){
+    try{
+      const r = await fetch(url + (url.includes('?')?'&':'?') + 't=' + Date.now());
+      if(!r.ok) throw new Error(r.status);
+      lista = parseCSV(await r.text());
+    }catch(e){ console.warn('Falha ao ler planilha, usando exemplos', e); }
+  }
+  estado.produtos[loja] = lista.map(normalizar).filter(p=>p.nome && p.ativo && (CONFIG.mostrarEsgotados || p.estoque>0));
+  return estado.produtos[loja];
+}
+
+/* =========================================================
+   NAVEGAÇÃO
+   ========================================================= */
+async function rota(){
+  const h = location.hash.replace('#','');
+  const loja = (h==='bravus'||h==='bravinhos') ? h : null;
+  document.querySelectorAll('.aba').forEach(a=>a.classList.toggle('ativa', a.dataset.ir===(loja||'inicio')));
+  document.body.dataset.tema = loja || 'inicio';
+  $('#tela-inicio').hidden = !!loja;
+  $('#tela-loja').hidden = !loja;
+  $('#btnCarrinho').hidden = !loja;
+  estado.loja = loja;
+  rodape();
+  window.scrollTo({top:0});
+  if(!loja){ document.title='Bravus & Bravinhos | Loja Online'; return; }
+  const c = CONFIG[loja];
+  document.title = c.nome + ' | Loja Online';
+  $('#lojaTag').textContent = c.tag; $('#lojaNome').textContent = c.nome; $('#lojaDesc').textContent = c.descricao;
+  estado.cat='Todos'; estado.gen='Todos'; estado.busca=''; $('#busca').value='';
+  $('#grade').innerHTML = '<div class="carregando">Carregando produtos…</div>';
+  await carregar(loja);
+  chips(); render(); atualizarContador();
+}
+document.querySelectorAll('.aba').forEach(a=>a.onclick=()=>{ location.hash = a.dataset.ir; });
+window.addEventListener('hashchange', rota);
+
+/* =========================================================
+   CATÁLOGO
+   ========================================================= */
+function chips(){
+  const G = CONFIG[estado.loja].generos, lista = estado.produtos[estado.loja];
+  const gens = G ? Object.keys(G).filter(g=>g!=='Unissex' && lista.some(p=>p.genero===g)) : [];
+  $('#generos').hidden = gens.length<2;
+  $('#generos').innerHTML = ['Todos',...gens].map(g=>`<button class="gen ${g===estado.gen?'ativo':''}" data-g="${esc(g)}">${g==='Todos'?'Todos':esc(G[g])}</button>`).join('');
+  $('#generos').querySelectorAll('.gen').forEach(b=>b.onclick=()=>{ estado.gen=b.dataset.g; chips(); render(); });
+  const cont = {}; lista.forEach(p=>cont[p.categoria]=(cont[p.categoria]||0)+1);
+  const cats = ['Todos', ...Object.keys(cont).sort((a,b)=>cont[b]-cont[a])];
+  $('#chips').innerHTML = cats.map(c=>`<button class="chip ${c===estado.cat?'ativo':''}" data-c="${esc(c)}">${esc(c)}</button>`).join('');
+  $('#chips').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ estado.cat=b.dataset.c; chips(); render(); });
+}
+
+function mostraMarca(m){
+  const c = CONFIG[estado.loja]; if(!c.mostrarMarca || !m) return '';
+  if((c.ocultarMarcas||[]).includes(String(m).toLowerCase())) return '';
+  return m;
+}
+function render(){
+  const termo = estado.busca.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  let lista = estado.produtos[estado.loja].filter(p=>{
+    if(estado.cat!=='Todos' && p.categoria!==estado.cat) return false;
+    if(estado.gen!=='Todos' && p.genero!==estado.gen && p.genero!=='Unissex') return false;
+    if(!termo) return true;
+    return (p.nome+' '+mostraMarca(p.marca)+' '+p.cores+' '+p.categoria+' '+(CONFIG[estado.loja].generos?.[p.genero]||'')).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(termo);
+  });
+  const pf = p=>p.pmin;
+  if(estado.ordem==='menor') lista.sort((a,b)=>pf(a)-pf(b));
+  else if(estado.ordem==='maior') lista.sort((a,b)=>pf(b)-pf(a));
+  else if(estado.ordem==='az') lista.sort((a,b)=>a.nome.localeCompare(b.nome));
+  else lista.sort((a,b)=>(b.destaque-a.destaque) || (b.estoque>0)-(a.estoque>0));
+
+  if(!lista.length){ $('#grade').innerHTML='<div class="vazio">Nenhum produto encontrado.</div>'; return; }
+
+  $('#grade').innerHTML = lista.map(p=>{
+    const esgot = p.estoque<=0, sel = estado.sel[p.codigo];
+    const tSel = p.tamanhos.find(t=>t.n===sel);
+    const preco = tSel ? tSel.p : p.pmin;
+    const aPartir = !tSel && p.varia;
+    const marca = mostraMarca(p.marca);
+    const parc = CONFIG.parcelasMax>1 ? `<span class="parcela">ou ${CONFIG.parcelasMax}x de ${brl(preco/CONFIG.parcelasMax)}</span>` : '';
+    const selo = esgot ? '<span class="selo">ESGOTADO</span>' : p.promo && !p.varia ? `<span class="selo">-${Math.round((1-p.promo/p.preco)*100)}%</span>` : p.destaque ? '<span class="selo novo">DESTAQUE</span>' : '';
+    const foto = p.foto
+      ? `<img src="${esc(p.foto)}" alt="${esc(p.nome)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'sem-foto',innerHTML:'<span class=ini>${esc(iniciais(p.nome))}</span><small>foto em breve</small>'}))">`
+      : `<div class="sem-foto"><span class="ini">${esc(iniciais(p.nome))}</span><small>foto em breve</small></div>`;
+    return `<article class="produto">
+      <div class="foto">${foto}${selo}</div>
+      <div class="info">
+        ${marca?`<span class="mc">${esc(marca)}</span>`:''}
+        <h3>${esc(p.nome)}</h3>
+        <div class="preco">${aPartir?'<span class="parcela">a partir de</span>':''}<b>${brl(preco)}</b>${p.promo&&!p.varia?`<s>${brl(p.preco)}</s>`:''}</div>
+        ${parc}
+        ${p.cores && !p.nome.toLowerCase().includes(p.cores.toLowerCase())?`<span class="cores">Cores: ${esc(p.cores)}</span>`:''}
+        <div class="tams">${p.tamanhos.filter(t=>t.q>0 || esgot).map(t=>`<button class="tam ${sel===t.n?'sel':''}" data-p="${esc(p.codigo)}" data-t="${esc(t.n)}" ${t.q<=0?'disabled title="Esgotado"':''}>${esc(t.n)}</button>`).join('')}</div>
+        <button class="add" data-add="${esc(p.codigo)}" ${esgot?'disabled':''}>${esgot?'Esgotado':sel?'Adicionar à sacola':'Escolha o tamanho'}</button>
+      </div>
+    </article>`;
+  }).join('');
+
+  $('#grade').querySelectorAll('.tam').forEach(b=>b.onclick=()=>{ estado.sel[b.dataset.p]=b.dataset.t; render(); });
+  $('#grade').querySelectorAll('.add').forEach(b=>b.onclick=()=>adicionar(b.dataset.add));
+}
+$('#busca').oninput = e=>{ estado.busca=e.target.value; render(); };
+$('#ordenar').onchange = e=>{ estado.ordem=e.target.value; render(); };
+
+/* =========================================================
+   SACOLA
+   ========================================================= */
+function adicionar(cod){
+  const loja=estado.loja, p=estado.produtos[loja].find(x=>x.codigo===cod), tam=estado.sel[cod];
+  if(!tam){ toast('Escolha um tamanho primeiro'); return; }
+  const T = p.tamanhos.find(t=>t.n===tam)||{}, maxQ = T.q || 0;
+  const cart=carrinhos[loja], ex=cart.find(i=>i.codigo===cod&&i.tam===tam);
+  if(ex){ if(ex.qtd>=maxQ){ toast('Quantidade máxima disponível'); return; } ex.qtd++; }
+  else cart.push({codigo:cod,nome:p.nome,marca:mostraMarca(p.marca),tam,qtd:1,preco:T.p,foto:p.foto,max:maxQ});
+  salvar(); toast('Adicionado à sacola ✓');
+}
+function salvar(){ store.set('sacola_'+estado.loja, carrinhos[estado.loja]); atualizarContador(); if($('#gaveta').classList.contains('on')) desenharSacola(); }
+function atualizarContador(){
+  if(!estado.loja) return;
+  const n = carrinhos[estado.loja].reduce((s,i)=>s+i.qtd,0);
+  $('#qtdCarrinho').textContent=n; $('#qtdCarrinho').hidden = n===0;
+}
+function desenharSacola(){
+  const loja=estado.loja, cart=carrinhos[loja];
+  $('#gTitulo').textContent = 'Sacola ' + CONFIG[loja].nome;
+  $('#gRodape').hidden = !cart.length;
+  if(!cart.length){ $('#gItens').innerHTML='<div class="g-vazio">Sua sacola está vazia.<br>Escolha um produto e o tamanho para começar.</div>'; return; }
+  $('#gItens').innerHTML = cart.map((i,k)=>`<div class="item">
+      <div class="mini">${i.foto?`<img src="${esc(i.foto)}" alt="">`:esc(iniciais(i.nome))}</div>
+      <div><h4>${esc(i.nome)}</h4><small>Tam. ${esc(i.tam)} · ${brl(i.preco)}</small>
+        <div class="qtdbox"><button data-m="${k}">−</button><span>${i.qtd}</span><button data-p="${k}">+</button></div></div>
+      <div class="valor">${brl(i.preco*i.qtd)}<button class="rm" data-r="${k}">remover</button></div>
+    </div>`).join('');
+  $('#gTotal').textContent = brl(cart.reduce((s,i)=>s+i.preco*i.qtd,0));
+  $('#gItens').querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{ const i=cart[b.dataset.m]; i.qtd--; if(i.qtd<=0) cart.splice(b.dataset.m,1); salvar(); });
+  $('#gItens').querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{ const i=cart[b.dataset.p]; if(i.max && i.qtd>=i.max){toast('Quantidade máxima disponível');return;} i.qtd++; salvar(); });
+  $('#gItens').querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{ cart.splice(b.dataset.r,1); salvar(); });
+}
+function abrir(){ desenharSacola(); $('#gaveta').classList.add('on'); $('#fundo').classList.add('on'); }
+function fechar(){ $('#gaveta').classList.remove('on'); $('#fundo').classList.remove('on'); }
+$('#btnCarrinho').onclick=abrir; $('#fechar').onclick=fechar; $('#fundo').onclick=fechar;
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') fechar(); });
+$('#cReceber').onchange = e=>{ $('#campoEnd').hidden = !e.target.value.startsWith('Entrega'); };
+$('#cNome').value = store.get('cliente_nome','');
+
+$('#btnZap').onclick = ()=>{
+  const loja=estado.loja, c=CONFIG[loja], cart=carrinhos[loja];
+  const nome=$('#cNome').value.trim();
+  if(!nome){ $('#cNome').focus(); toast('Informe seu nome'); return; }
+  store.set('cliente_nome',nome);
+  const total=cart.reduce((s,i)=>s+i.preco*i.qtd,0);
+  const entrega=$('#cReceber').value, end=$('#cEnd').value.trim(), obs=$('#cObs').value.trim();
+  let msg = `Olá! Quero fazer um pedido na *${c.nome}* pelo site:\n\n`;
+  cart.forEach(i=>{ msg += `• ${i.qtd}x ${i.nome}${i.marca?' ('+i.marca+')':''} - Tam. ${i.tam} - ${brl(i.preco*i.qtd)}\n   Cód: ${i.codigo}\n`; });
+  msg += `\n*Total: ${brl(total)}*\n\n`;
+  msg += `Nome: ${nome}\nRecebimento: ${entrega}${entrega.startsWith('Entrega')&&end?'\nEndereço: '+end:''}\nPagamento: ${$('#cPagto').value}`;
+  if(obs) msg += `\nObs.: ${obs}`;
+  window.open(`https://wa.me/${c.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank');
+};
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+function rodape(){
+  const bloco = k=>{ const c=CONFIG[k];
+    return `<div><h4>${c.nome}</h4>${esc(c.endereco)}<br>
+      <a href="https://wa.me/${c.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
+      ${c.instagram?` · <a href="https://instagram.com/${esc(c.instagram)}" target="_blank" rel="noopener">@${esc(c.instagram)}</a>`:''}
+      ${c.horario?`<br>${esc(c.horario)}`:''}</div>`; };
+  const lojas = estado.loja ? [estado.loja] : ['bravus','bravinhos'];
+  $('#rodape').innerHTML = lojas.map(bloco).join('') +
+    `<div class="legal">© ${new Date().getFullYear()} Group BRV · CNPJ ${CONFIG.cnpj} · Preços e disponibilidade sujeitos a confirmação no atendimento.</div>`;
+}
+
+rota();
+</script>
+</body>
+</html>
