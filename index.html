@@ -774,6 +774,7 @@ async function carregar(loja, forcar){
     }catch(e){ console.warn('Planilha indisponível, usando catálogo salvo', e); }
   }
   estado.produtos[loja]=lista.map(p=>normalizar(p,loja)).filter(p=>p.nome && p.ativo && (CONFIG.mostrarEsgotados||p.estoque>0));
+  { const ps=estado.produtos[loja], nv=ps.filter(p=>p.novo).length; if(nv>ps.length*0.4) ps.forEach(p=>p.novo=false); } // cadastro em massa não conta como novidade
   estado.cfg[loja]=cfg; estado.aval[loja]=aval;
 }
 
