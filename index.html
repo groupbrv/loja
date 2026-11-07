@@ -185,6 +185,40 @@ footer h4{color:var(--txt);margin-bottom:6px;font-size:14px}
 footer a{color:var(--acc);text-decoration:none}
 .legal{width:100%;font-size:12px;opacity:.7;margin-top:10px}
 
+/* =========================================================
+   PAINEL ADMIN (#admin)
+   ========================================================= */
+body[data-tema="admin"]{--bg:#f4f4f5;--bg2:#e9e9ec;--card:#fff;--txt:#18181b;--muted:#71717a;--acc:#18181b;--acc-txt:#fff;--line:#e4e4e7;--font-title:'Inter',system-ui,sans-serif}
+.adm{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.adm h1{font-size:24px;font-weight:700;margin-bottom:4px}
+.adm .sub{color:var(--muted);font-size:14px;margin-bottom:18px}
+.adm-lojas{display:flex;gap:8px;margin-bottom:16px}
+.adm-lojas button{flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-weight:700}
+.adm-lojas button.on[data-l="bravus"]{background:#0d0d0d;color:#c9a54c;border-color:#0d0d0d}
+.adm-lojas button.on[data-l="bravinhos"]{background:#ff7a59;color:#fff;border-color:#ff7a59}
+.adm-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.adm-login{display:grid;gap:12px;max-width:360px}
+.adm-login input{padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.adm-btn{padding:12px 16px;border-radius:10px;background:var(--acc);color:var(--acc-txt);font-weight:700}
+.adm-btn.sec{background:var(--bg2);color:var(--txt)}
+.adm-btn:disabled{opacity:.5}
+.adm-erro{color:#dc2626;font-size:14px;min-height:18px}
+.adm-barra{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.adm-barra input{flex:1 1 200px;padding:10px 12px;border:1px solid var(--line);border-radius:10px}
+.adm-barra select{padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.adm-cont{font-size:13px;color:var(--muted);margin-bottom:10px}
+.adm-item{display:grid;grid-template-columns:76px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.adm-foto{width:76px;height:95px;border-radius:10px;background:var(--bg2);overflow:hidden;display:grid;place-items:center;color:var(--muted);font-size:11px;text-align:center;position:relative}
+.adm-foto img{width:100%;height:100%;object-fit:cover}
+.adm-foto .env{position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;display:grid;place-items:center;font-weight:700}
+.adm-nome{font-weight:600;font-size:15px}
+.adm-meta{font-size:12px;color:var(--muted);margin:2px 0 8px}
+.adm-acoes{display:flex;flex-wrap:wrap;gap:6px}
+.adm-acoes button,.adm-acoes label{padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:13px;font-weight:600;cursor:pointer}
+.adm-acoes label.prim{background:var(--acc);color:#fff;border-color:var(--acc)}
+.adm-acoes .on{background:#fef3c7;border-color:#f59e0b}
+.adm-acoes .off{background:#fee2e2;border-color:#ef4444}
+.adm-tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:var(--bg2);margin-left:6px;color:var(--muted)}
 [hidden]{display:none!important}
 
 @media (max-width:760px){
@@ -285,6 +319,40 @@ footer a{color:var(--acc);text-decoration:none}
   </div>
 </main>
 
+<!-- ===================== ADMIN ===================== -->
+<main id="tela-admin" hidden>
+  <div class="adm">
+    <h1>Painel de fotos</h1>
+    <p class="sub">Fotos, destaques e produtos visíveis na loja online. Acesso com o usuário e PIN de administrador do PDV.</p>
+    <div class="adm-lojas">
+      <button data-l="bravus">BRAVUS</button>
+      <button data-l="bravinhos">Bravinhos</button>
+    </div>
+    <div class="adm-box" id="admLogin">
+      <form class="adm-login" id="admForm" autocomplete="off">
+        <input id="admUser" placeholder="Usuário do PDV" autocapitalize="none" autocomplete="username">
+        <input id="admPin" placeholder="PIN" type="password" inputmode="numeric" autocomplete="current-password">
+        <button class="adm-btn" id="admEntrar" type="submit">Entrar</button>
+        <div class="adm-erro" id="admErro"></div>
+      </form>
+    </div>
+    <div class="adm-box" id="admLista" hidden>
+      <div class="adm-barra">
+        <input id="admBusca" type="search" placeholder="Buscar produto...">
+        <select id="admFiltro">
+          <option value="semfoto">Sem foto</option>
+          <option value="todos">Todos</option>
+          <option value="comfoto">Com foto</option>
+          <option value="ocultos">Ocultos</option>
+        </select>
+        <button class="adm-btn sec" id="admSair" type="button">Sair</button>
+      </div>
+      <div class="adm-cont" id="admCont"></div>
+      <div id="admItens"></div>
+    </div>
+  </div>
+</main>
+
 <footer>
   <div class="wrap" id="rodape"></div>
 </footer>
@@ -327,6 +395,7 @@ const CONFIG = {
     tag: 'Urban Wear · Moda Masculina',
     descricao: 'Estilo urbano com acabamento premium. Escolha suas peças, selecione o tamanho e finalize pelo WhatsApp.',
     whatsapp: '5584987590083',          // DDI + DDD + número, só dígitos
+    api: 'https://script.google.com/macros/s/AKfycbzM0RGrW6vHKIQO3c9DZgbZRCW3EcEYd0aL1euZLLh42ooeBcJILqO_azrhmH03OQqB/exec', // PDV Bravus (painel de fotos)
     planilhaCSV: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR-YM9OPQXtPhuMEda77T6zYhwQzv6hC3osBj1PuqCpKkF_ra0pbDHG3cI03CQ-5o9_LpMPOLIpLt86/pub?gid=1097152818&single=true&output=csv',  // link CSV da aba "vitrine" (Arquivo › Compartilhar › Publicar na Web › CSV)
     endereco: 'Rua Frei Miguelinho, 333, Centro, Mossoró/RN',
     instagram: '',                      // ex.: 'bravusurbanwear' (sem @)
@@ -339,6 +408,7 @@ const CONFIG = {
     tag: 'Moda Infantil',
     descricao: 'Conforto e estilo para os pequenos. Escolha o tamanho certinho e finalize pelo WhatsApp.',
     whatsapp: '5584987590083',          // troque se a Bravinhos tiver número próprio
+    api: 'https://script.google.com/macros/s/AKfycbzFKBDPEfjpGMk4aVBQgNj2RX7HZwA__DSmogiSx_wRwVfZemQctSPW4fnNs6jPBHKwwQ/exec', // PDV Bravinhos
     planilhaCSV: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRU8uVGwuGgrgw6KGQVrfn-xBo2kVlMOFu819HslIqJ4dqunfOOSfD10lWfEllSBWyadhCXBQh5F1b8/pub?gid=645250235&single=true&output=csv',
     endereco: 'Rua Frei Miguelinho, 333, Centro, Mossoró/RN',
     instagram: '',
@@ -445,6 +515,8 @@ async function carregar(loja){
    ========================================================= */
 async function rota(){
   const h = location.hash.replace('#','');
+  if(h==='admin'){ abrirAdmin(); return; }
+  $('#tela-admin').hidden = true; document.querySelector('footer').hidden = false;
   const loja = (h==='bravus'||h==='bravinhos') ? h : null;
   document.querySelectorAll('.aba').forEach(a=>a.classList.toggle('ativa', a.dataset.ir===(loja||'inicio')));
   document.body.dataset.tema = loja || 'inicio';
@@ -601,6 +673,108 @@ function rodape(){
   const lojas = estado.loja ? [estado.loja] : ['bravus','bravinhos'];
   $('#rodape').innerHTML = lojas.map(bloco).join('') +
     `<div class="legal">© ${new Date().getFullYear()} Group BRV · CNPJ ${CONFIG.cnpj} · Preços e disponibilidade sujeitos a confirmação no atendimento.</div>`;
+}
+
+/* =========================================================
+   PAINEL ADMIN
+   ========================================================= */
+const adm = { loja: store.get('adm_loja','bravus'), itens: [], ocupado: {} };
+const sess = {
+  get(l){ try{ return sessionStorage.getItem('adm_tk_'+l)||''; }catch(e){ return ''; } },
+  set(l,v){ try{ v ? sessionStorage.setItem('adm_tk_'+l,v) : sessionStorage.removeItem('adm_tk_'+l); }catch(e){} }
+};
+async function api(l, dados){
+  const r = await fetch(CONFIG[l].api, { method:'POST', body: JSON.stringify(dados) });
+  const j = await r.json();
+  if(!j.ok){ if(j.erro==='SESSAO_EXPIRADA'){ sess.set(l,''); mostrarLogin(); } throw new Error(j.erro==='SESSAO_EXPIRADA'?'Sessão expirada, entre de novo.':j.erro); }
+  return j;
+}
+function abrirAdmin(){
+  document.body.dataset.tema='admin'; document.title='Painel de fotos';
+  $('#tela-inicio').hidden=true; $('#tela-loja').hidden=true; $('#btnCarrinho').hidden=true;
+  $('#tela-admin').hidden=false; document.querySelector('footer').hidden=true;
+  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
+  trocarLojaAdm(adm.loja);
+}
+function trocarLojaAdm(l){
+  adm.loja=l; store.set('adm_loja',l);
+  document.querySelectorAll('.adm-lojas button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+  if(sess.get(l)) carregarAdm(); else mostrarLogin();
+}
+function mostrarLogin(){ $('#admLogin').hidden=false; $('#admLista').hidden=true; $('#admErro').textContent=''; $('#admPin').value=''; setTimeout(()=>$('#admUser').focus(),50); }
+document.querySelectorAll('.adm-lojas button').forEach(b=>b.onclick=()=>trocarLojaAdm(b.dataset.l));
+$('#admForm').onsubmit = async e=>{
+  e.preventDefault(); const l=adm.loja, bt=$('#admEntrar');
+  bt.disabled=true; bt.textContent='Entrando…'; $('#admErro').textContent='';
+  try{
+    const j = await api(l,{acao:'login', user:$('#admUser').value.trim(), pin:$('#admPin').value});
+    sess.set(l,j.token); store.set('adm_user',$('#admUser').value.trim()); carregarAdm();
+  }catch(err){ $('#admErro').textContent=err.message; }
+  bt.disabled=false; bt.textContent='Entrar';
+};
+$('#admUser').value = store.get('adm_user','');
+$('#admSair').onclick=()=>{ sess.set(adm.loja,''); mostrarLogin(); };
+$('#admBusca').oninput=desenharAdm; $('#admFiltro').onchange=desenharAdm;
+
+async function carregarAdm(){
+  $('#admLogin').hidden=true; $('#admLista').hidden=false;
+  $('#admItens').innerHTML='<p class="adm-cont">Carregando produtos…</p>'; $('#admCont').textContent='';
+  try{ const j=await api(adm.loja,{acao:'listar', token:sess.get(adm.loja)}); adm.itens=j.itens; desenharAdm(); }
+  catch(err){ $('#admItens').innerHTML='<p class="adm-erro">'+esc(err.message)+'</p>'; }
+}
+function desenharAdm(){
+  const f=$('#admFiltro').value, t=$('#admBusca').value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  const lista=adm.itens.filter(i=>{
+    if(f==='semfoto' && (i.foto || !i.ativo)) return false;
+    if(f==='comfoto' && !i.foto) return false;
+    if(f==='ocultos' && i.ativo) return false;
+    return !t || (i.nome+' '+i.categoria+' '+i.codigo).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(t);
+  }).sort((a,b)=>(b.naVitrine-a.naVitrine)||a.nome.localeCompare(b.nome));
+  const semFoto=adm.itens.filter(i=>!i.foto&&i.ativo&&i.naVitrine).length;
+  $('#admCont').textContent=`${lista.length} produto(s) · ${semFoto} na vitrine ainda sem foto`;
+  $('#admItens').innerHTML = lista.map(i=>{
+    const k=esc(i.codigo), env=adm.ocupado[i.codigo];
+    return `<div class="adm-item">
+      <div class="adm-foto">${i.foto?`<img src="${esc(linkFoto(i.foto))}" alt="">`:'sem foto'}${env?'<div class="env">'+esc(env)+'</div>':''}</div>
+      <div>
+        <div class="adm-nome">${esc(i.nome)}${!i.naVitrine?'<span class="adm-tag">sem estoque</span>':''}${!i.ativo?'<span class="adm-tag">oculto</span>':''}</div>
+        <div class="adm-meta">${esc(i.categoria||'')}${i.preco?' · '+brl(num(i.preco)):''} · cód. ${k}</div>
+        <div class="adm-acoes">
+          <label class="prim">${i.foto?'Trocar foto':'Adicionar foto'}<input type="file" accept="image/*" hidden data-foto="${k}"></label>
+          ${i.foto?`<button data-rm="${k}">Remover foto</button>`:''}
+          <button data-dest="${k}" class="${i.destaque?'on':''}">${i.destaque?'★ Destaque':'☆ Destacar'}</button>
+          <button data-vis="${k}" class="${i.ativo?'':'off'}">${i.ativo?'Visível':'Oculto'}</button>
+        </div>
+      </div></div>`;
+  }).join('') || '<p class="adm-cont">Nada por aqui.</p>';
+  $('#admItens').querySelectorAll('[data-foto]').forEach(inp=>inp.onchange=()=>{ if(inp.files[0]) enviarFoto(inp.dataset.foto, inp.files[0]); });
+  $('#admItens').querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{ if(confirm('Remover a foto deste produto?')) acaoAdm(b.dataset.rm,{acao:'remover_foto'},i=>i.foto=''); });
+  $('#admItens').querySelectorAll('[data-dest]').forEach(b=>b.onclick=()=>{ const i=adm.itens.find(x=>x.codigo===b.dataset.dest); acaoAdm(i.codigo,{acao:'editar',destaque:!i.destaque},x=>x.destaque=!x.destaque); });
+  $('#admItens').querySelectorAll('[data-vis]').forEach(b=>b.onclick=()=>{ const i=adm.itens.find(x=>x.codigo===b.dataset.vis); acaoAdm(i.codigo,{acao:'editar',ativo:!i.ativo},x=>x.ativo=!x.ativo); });
+}
+async function acaoAdm(cod, dados, aplicar){
+  const l=adm.loja; adm.ocupado[cod]='Salvando…'; desenharAdm();
+  try{ const j=await api(l,Object.assign({token:sess.get(l),codigo:cod},dados)); const i=adm.itens.find(x=>x.codigo===cod); if(i) aplicar(i,j); delete estado.produtos[l]; toast('Salvo ✓'); }
+  catch(err){ alert(err.message); }
+  delete adm.ocupado[cod]; desenharAdm();
+}
+/* reduz a foto no aparelho: até 1200 px, JPEG ~82% */
+async function reduzirFoto(file){
+  const url=URL.createObjectURL(file);
+  try{
+    const img=await new Promise((ok,erro)=>{ const im=new Image(); im.onload=()=>ok(im); im.onerror=()=>erro(new Error('Não consegui abrir essa imagem.')); im.src=url; });
+    const max=1200, k=Math.min(1, max/Math.max(img.naturalWidth,img.naturalHeight));
+    const c=document.createElement('canvas'); c.width=Math.round(img.naturalWidth*k); c.height=Math.round(img.naturalHeight*k);
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+    return c.toDataURL('image/jpeg',0.82).split(',')[1];
+  } finally { URL.revokeObjectURL(url); }
+}
+async function enviarFoto(cod, file){
+  adm.ocupado[cod]='Enviando…'; desenharAdm();
+  try{
+    const b64=await reduzirFoto(file);
+    await acaoAdm(cod,{acao:'foto', base64:b64, mime:'image/jpeg'},(i,j)=>i.foto=j.foto);
+  }catch(err){ alert(err.message); delete adm.ocupado[cod]; desenharAdm(); }
 }
 
 rota();
