@@ -703,18 +703,17 @@ function trocarLojaAdm(l){
   document.querySelectorAll('.adm-lojas button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
   if(sess.get(l)) carregarAdm(); else mostrarLogin();
 }
-function mostrarLogin(){ $('#admLogin').hidden=false; $('#admLista').hidden=true; $('#admErro').textContent=''; $('#admPin').value=''; setTimeout(()=>$('#admUser').focus(),50); }
+function mostrarLogin(){ $('#admLogin').hidden=false; $('#admLista').hidden=true; $('#admErro').textContent=''; $('#admPin').value=''; $('#admUser').value=store.get('adm_user_'+adm.loja,''); $('#admUser').placeholder='Usuário do PDV '+CONFIG[adm.loja].nome; setTimeout(()=>$('#admUser').focus(),50); }
 document.querySelectorAll('.adm-lojas button').forEach(b=>b.onclick=()=>trocarLojaAdm(b.dataset.l));
 $('#admForm').onsubmit = async e=>{
   e.preventDefault(); const l=adm.loja, bt=$('#admEntrar');
   bt.disabled=true; bt.textContent='Entrando…'; $('#admErro').textContent='';
   try{
     const j = await api(l,{acao:'login', user:$('#admUser').value.trim(), pin:$('#admPin').value});
-    sess.set(l,j.token); store.set('adm_user',$('#admUser').value.trim()); carregarAdm();
-  }catch(err){ $('#admErro').textContent=err.message; }
+    sess.set(l,j.token); store.set('adm_user_'+l,$('#admUser').value.trim()); carregarAdm();
+  }catch(err){ $('#admErro').textContent=err.message + (/incorreto/.test(err.message)?' Use o usuário do PDV da '+CONFIG[l].nome+' (cada loja tem o seu).':''); }
   bt.disabled=false; bt.textContent='Entrar';
 };
-$('#admUser').value = store.get('adm_user','');
 $('#admSair').onclick=()=>{ sess.set(adm.loja,''); mostrarLogin(); };
 $('#admBusca').oninput=desenharAdm; $('#admFiltro').onchange=desenharAdm;
 
