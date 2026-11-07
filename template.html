@@ -327,6 +327,37 @@ footer a{color:var(--acc);text-decoration:none}
 .adm-avals button{position:absolute;top:6px;right:6px;background:#fff;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:700;border:1px solid var(--line)}
 .adm-ok{color:#16a34a;font-size:14px;font-weight:600}
 
+/* boas-vindas (cadastro do cliente) */
+.portao{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.portao[hidden]{display:none}
+.portao-caixa{width:min(420px,100%);max-height:94vh;overflow:auto;background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:22px;padding:28px 24px 20px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.portao-caixa img{width:min(220px,62%);margin:0 auto 8px;display:block}
+.portao-caixa h2{font-family:var(--font-title);font-size:30px;line-height:1.1;margin:6px 0}
+body[data-tema="bravinhos"] .portao-caixa h2{font-weight:800}
+.portao-caixa>p{color:var(--muted);font-size:14px;margin:0 0 16px}
+.portao-caixa form{display:grid;gap:10px;text-align:left}
+.portao-caixa label{font-size:13px;font-weight:600;display:grid;gap:5px}
+.portao-caixa input[type=text],.portao-caixa input[type=tel]{padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--txt);font-size:16px;width:100%}
+.portao-check{display:flex!important;gap:8px;align-items:flex-start;font-weight:400!important;color:var(--muted)}
+.portao-check input{margin-top:3px;accent-color:var(--acc)}
+.portao-caixa button{margin-top:2px;padding:14px;border-radius:12px;background:var(--acc);color:var(--acc-txt);font-weight:800;font-size:16px}
+.portao-caixa button:disabled{opacity:.6}
+.portao-erro{color:#ef4444;font-size:13px;min-height:16px}
+.portao-lgpd{font-size:11px;color:var(--muted);margin:12px 0 0;line-height:1.45}
+/* área do lojista: clientes e sacolas */
+.adm-resumo{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:14px}
+.adm-resumo div{background:var(--bg2);border-radius:12px;padding:12px}
+.adm-resumo b{display:block;font-size:22px}
+.adm-resumo small{font-size:12px;color:var(--muted)}
+.cli{padding:12px 0;border-top:1px solid var(--line);display:grid;gap:6px}
+.cli-nome{font-weight:700}
+.cli-meta{font-size:12px;color:var(--muted);margin-top:2px}
+.cli-itens{font-size:13px}
+.cli .adm-acoes a{padding:8px 12px;border-radius:8px;background:#16a34a;color:#fff;font-size:13px;font-weight:700}
+.cli select{padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:13px}
+.sit{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:700;margin-left:4px}
+.sit-ab{background:#fee2e2;color:#b91c1c}.sit-en{background:#dcfce7;color:#166534}.sit-ou{background:var(--bg2);color:var(--muted)}
+
 @media (max-width:860px){
   .beneficios{grid-template-columns:repeat(2,1fr)}
   .infos{grid-template-columns:1fr}
@@ -514,6 +545,7 @@ footer a{color:var(--acc);text-decoration:none}
     <div id="admArea" hidden>
       <div class="adm-tabs" id="admTabs">
         <button data-t="produtos" class="on">Produtos e fotos</button>
+        <button data-t="clientes">Clientes e sacolas</button>
         <button data-t="capa">Capa do mês</button>
         <button data-t="campanha">Campanha</button>
         <button data-t="avaliacoes">Avaliações</button>
@@ -535,6 +567,23 @@ footer a{color:var(--acc);text-decoration:none}
         </div>
         <div class="adm-cont" id="admCont"></div>
         <div id="admItens"></div>
+      </div>
+
+      <div class="adm-box" data-painel="clientes" hidden>
+        <div class="adm-resumo" id="cliResumo"></div>
+        <div class="adm-barra">
+          <select id="cliFiltro">
+            <option value="abandonadas">Sacolas abandonadas</option>
+            <option value="enviadas">Pedidos enviados ao WhatsApp</option>
+            <option value="sacolas">Todas as sacolas</option>
+            <option value="leads">Cadastros (leads)</option>
+          </select>
+          <input id="cliBusca" type="search" placeholder="Buscar nome ou telefone...">
+          <button class="adm-btn sec" id="cliAtualizar" type="button">Atualizar</button>
+          <button class="adm-btn sec" id="cliExportar" type="button">Baixar lista</button>
+        </div>
+        <div class="adm-cont" id="cliCont"></div>
+        <div id="cliLista"></div>
       </div>
 
       <div class="adm-box" data-painel="capa" hidden>
@@ -629,6 +678,21 @@ footer a{color:var(--acc);text-decoration:none}
   </div>
 </aside>
 <div class="modal" id="modal" role="dialog" aria-modal="true"><button class="fechar" data-fechar aria-label="Fechar">×</button><div id="modalCorpo"></div></div>
+<div class="portao" id="portao" hidden role="dialog" aria-modal="true" aria-labelledby="pTitulo">
+  <div class="portao-caixa">
+    <img id="pLogo" alt="">
+    <h2 id="pTitulo">Bem-vindo!</h2>
+    <p id="pTexto">Informe seu nome e WhatsApp para ver o catálogo completo.</p>
+    <form id="pForm" novalidate>
+      <label>Seu nome<input type="text" id="pNome" autocomplete="name" placeholder="Como podemos te chamar?" maxlength="60"></label>
+      <label>WhatsApp com DDD<input type="tel" id="pFone" autocomplete="tel" inputmode="tel" placeholder="(84) 99999-9999" maxlength="16"></label>
+      <label class="portao-check"><input type="checkbox" id="pOfertas"> <span id="pOfTxt">Quero receber novidades e ofertas pelo WhatsApp</span></label>
+      <div class="portao-erro" id="pErro"></div>
+      <button type="submit" id="pBtn">Ver catálogo</button>
+    </form>
+    <p class="portao-lgpd" id="pLgpd"></p>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -757,6 +821,65 @@ function normalizar(p, loja){
 const estado = { loja:null, produtos:{}, cfg:{}, aval:{}, cat:'Todos', gen:'Todos', busca:'', ordem:'padrao', sel:{} };
 const carrinhos = { bravus: store.get('sacola_bravus',[]), bravinhos: store.get('sacola_bravinhos',[]) };
 
+/* =========================================================
+   CADASTRO DO CLIENTE (tela de boas-vindas) E SACOLA NA NUVEM
+   ========================================================= */
+estado.cliente = store.get('cliente', null);
+let visitante = store.get('visitante','');
+if(!/^[a-z0-9]{8,40}$/i.test(visitante)){
+  visitante = ((crypto.randomUUID&&crypto.randomUUID()) || (Math.random().toString(36).slice(2)+Date.now().toString(36)+Math.random().toString(36).slice(2))).replace(/[^a-z0-9]/gi,'').slice(0,32);
+  store.set('visitante',visitante);
+}
+function apiPub(l,dados){ return fetch(CONFIG[l].api,{method:'POST',body:JSON.stringify(dados),keepalive:true}).then(r=>r.json()); }
+function foneValido(t){ const n=String(t||'').replace(/\D/g,'').replace(/^0+/,'').replace(/^55(?=\d{10,11}$)/,''); return /^[1-9]{2}9?\d{8}$/.test(n)?n:''; }
+function registrarNaLoja(l){
+  const c=estado.cliente; if(!c || (c.lojas||{})[l]) return;
+  apiPub(l,{acao:'lead',visitante,nome:c.nome,telefone:c.tel,ofertas:!!c.ofertas}).then(j=>{ if(j.ok){ c.lojas=c.lojas||{}; c.lojas[l]=1; store.set('cliente',c); } }).catch(()=>{});
+}
+function mostrarPortao(l){
+  const c=CONFIG[l];
+  $('#pLogo').src='logo-'+l+'.png'; $('#pLogo').alt=c.nome;
+  $('#pTitulo').textContent = l==='bravinhos' ? 'Que bom ter você aqui!' : 'Bem-vindo à Bravus';
+  $('#pTexto').textContent = 'Informe seu nome e WhatsApp para ver o catálogo completo e montar seu pedido.';
+  $('#pOfTxt').textContent = 'Quero receber novidades e ofertas da '+c.nome+' pelo WhatsApp';
+  $('#pLgpd').textContent = 'Usamos seu nome e telefone só para te atender e acompanhar seus pedidos. Não compartilhamos com terceiros. Para remover seus dados, é só pedir no WhatsApp da loja.';
+  $('#pErro').textContent=''; $('#portao').hidden=false; document.body.style.overflow='hidden';
+  setTimeout(()=>$('#pNome').focus(),80);
+}
+function fecharPortao(){ $('#portao').hidden=true; document.body.style.overflow=''; }
+$('#pFone').oninput=e=>{ const n=e.target.value.replace(/\D/g,'').slice(0,11);
+  e.target.value = n.length>6 ? `(${n.slice(0,2)}) ${n.slice(2,n.length-4)}-${n.slice(-4)}` : n.length>2 ? `(${n.slice(0,2)}) ${n.slice(2)}` : n; };
+$('#pForm').onsubmit=async e=>{
+  e.preventDefault(); const l=estado.loja; if(!l) return;
+  const nome=$('#pNome').value.trim().replace(/\s+/g,' '), tel=foneValido($('#pFone').value), ofertas=$('#pOfertas').checked;
+  if(nome.replace(/[^a-zà-ú]/gi,'').length<2){ $('#pErro').textContent='Informe seu nome.'; $('#pNome').focus(); return; }
+  if(!tel){ $('#pErro').textContent='Informe um WhatsApp válido com DDD.'; $('#pFone').focus(); return; }
+  const bt=$('#pBtn'); bt.disabled=true; bt.textContent='Entrando…';
+  const novo={nome,tel,ofertas,lojas:{}};
+  try{
+    const j=await apiPub(l,{acao:'lead',visitante,nome,telefone:tel,ofertas});
+    if(j.ok) novo.lojas[l]=1;
+    else if(/Telefone|nome/i.test(j.erro||'')){ $('#pErro').textContent=j.erro; bt.disabled=false; bt.textContent='Ver catálogo'; return; }
+  }catch(err){ /* sem internet: entra assim mesmo e o cadastro é reenviado na próxima visita */ }
+  estado.cliente=novo; store.set('cliente',novo); store.set('cliente_nome',nome); $('#cNome').value=nome;
+  bt.disabled=false; bt.textContent='Ver catálogo';
+  fecharPortao(); sincronizarSacola(l,'mudou',true);
+};
+const timersSacola={};
+function sincronizarSacola(l,evento,agora){
+  if(!l) return; clearTimeout(timersSacola[l]); timersSacola[l]=0;
+  const enviar=()=>{
+    timersSacola[l]=0;
+    const c=estado.cliente||{}, cart=carrinhos[l]||[], sig=JSON.stringify(cart.map(i=>[i.codigo,i.tam,i.qtd]));
+    if(evento!=='enviada' && store.get('sacola_sync_'+l,'')===sig) return;
+    apiPub(l,{acao:'sacola',visitante,evento,nome:c.nome||'',telefone:c.tel||'',
+      itens:cart.map(i=>({codigo:i.codigo,nome:i.nome,tam:i.tam,qtd:i.qtd,preco:i.preco}))})
+      .then(j=>{ if(j.ok) store.set('sacola_sync_'+l,sig); }).catch(()=>{});
+  };
+  if(agora||evento==='enviada') enviar(); else timersSacola[l]=setTimeout(enviar,2500);
+}
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden') Object.keys(timersSacola).forEach(l=>{ if(timersSacola[l]) sincronizarSacola(l,'mudou',true); }); });
+
 async function carregar(loja, forcar){
   if(estado.produtos[loja] && !forcar) return;
   const url=CONFIG[loja].planilhaCSV;
@@ -786,7 +909,7 @@ async function rota(){
   const h=decodeURIComponent(location.hash.replace('#',''));
   const [base, cod] = h.split('/');
   fecharTudo();
-  if(base==='admin'){ abrirAdmin(); return; }
+  if(base==='admin'){ fecharPortao(); abrirAdmin(); return; }
   $('#tela-admin').hidden=true; document.querySelector('footer').hidden=false;
   const loja=(base==='bravus'||base==='bravinhos')?base:null;
   $$('.aba').forEach(a=>a.classList.toggle('ativa', a.dataset.ir===(loja||'inicio')));
@@ -794,6 +917,7 @@ async function rota(){
   $('#tela-inicio').hidden=!!loja; $('#tela-loja').hidden=!loja; $('#btnCarrinho').hidden=!loja;
   const mudouLoja = estado.loja!==loja;
   estado.loja=loja;
+  if(loja){ if(!estado.cliente) mostrarPortao(loja); else { fecharPortao(); registrarNaLoja(loja); } } else fecharPortao();
   if(!loja){ document.title='Bravus & Bravinhos | Loja Online'; $('#avisoTopo').hidden=true; $('#zapFlutua').hidden=true; rodape(); if(mudouLoja) window.scrollTo({top:0}); return; }
   const c=CONFIG[loja];
   document.title=c.nome+' | Loja Online';
@@ -1009,7 +1133,7 @@ function adicionar(cod){
   else cart.push({codigo:cod,nome:p.nome,marca:marcaVisivel(p.marca),tam,qtd:1,preco:T.p,foto:p.foto,max:maxQ});
   salvar(); toast('Adicionado à sacola ✓');
 }
-function salvar(){ store.set('sacola_'+estado.loja, carrinhos[estado.loja]); atualizarContador(); if($('#gaveta').classList.contains('on')) desenharSacola(); }
+function salvar(){ store.set('sacola_'+estado.loja, carrinhos[estado.loja]); sincronizarSacola(estado.loja,'mudou'); atualizarContador(); if($('#gaveta').classList.contains('on')) desenharSacola(); }
 function atualizarContador(){ if(!estado.loja) return; const n=carrinhos[estado.loja].reduce((s,i)=>s+i.qtd,0); $('#qtdCarrinho').textContent=n; $('#qtdCarrinho').hidden=n===0; }
 function desenharSacola(){
   const l=estado.loja, cart=carrinhos[l];
@@ -1038,6 +1162,7 @@ $('#btnZap').onclick=()=>{
   msg+=`\n*Total: ${brl(total)}*\n\nNome: ${nome}\nRecebimento: ${entrega}${entrega.startsWith('Entrega')&&end?'\nEndereço: '+end:''}\nPagamento: ${$('#cPagto').value}`;
   if(obs) msg+=`\nObs.: ${obs}`;
   window.open(`https://wa.me/${c.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank');
+  sincronizarSacola(l,'enviada');
 };
 
 /* RODAPÉ */
@@ -1084,6 +1209,7 @@ $$('#admTabs button').forEach(b=>b.onclick=()=>{
   if(b.dataset.t==='sair'){ sess.set(adm.loja,''); mostrarLogin(); return; }
   adm.aba=b.dataset.t; $$('#admTabs button').forEach(x=>x.classList.toggle('on',x===b));
   $$('[data-painel]').forEach(p=>p.hidden=p.dataset.painel!==adm.aba);
+  if(adm.aba==='clientes') carregarClientes();
 });
 $('#admBusca').oninput=desenharAdm; $('#admFiltro').onchange=desenharAdm;
 async function carregarAdm(){
@@ -1091,10 +1217,59 @@ async function carregarAdm(){
   $('#admItens').innerHTML='<p class="adm-cont">Carregando…</p>'; $('#admCont').textContent='';
   try{
     const [j,c]=await Promise.all([api(adm.loja,{acao:'listar',token:sess.get(adm.loja)}), api(adm.loja,{acao:'config_get',token:sess.get(adm.loja)})]);
-    adm.itens=j.itens; adm.cfg=c.cfg||{}; adm.aval=c.feedbacks||[]; desenharAdm(); preencherCfg();
+    adm.itens=j.itens; adm.cfg=c.cfg||{}; adm.aval=c.feedbacks||[]; desenharAdm(); preencherCfg(); adm.cli=null; if(adm.aba==='clientes') carregarClientes();
   }catch(err){ $('#admItens').innerHTML='<p class="adm-erro">'+esc(err.message)+'</p>'; }
 }
 function invalidar(){ delete estado.produtos[adm.loja]; }
+/* CLIENTES E SACOLAS (área do lojista) */
+function dataBR(ms){ if(!ms) return ''; const d=new Date(ms); return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); }
+function foneBR(t){ const n=String(t||'').replace(/\D/g,'').replace(/^55/,''); return n.length===11?`(${n.slice(0,2)}) ${n.slice(2,7)}-${n.slice(7)}`:n.length===10?`(${n.slice(0,2)}) ${n.slice(2,6)}-${n.slice(6)}`:String(t||''); }
+function abandonada(s){ return s.situacao==='Aberta' && s.itens.length>0 && Date.now()-s.data>36e5 && !/Vendido|Sem interesse/.test(s.follow); }
+async function carregarClientes(){
+  $('#cliLista').innerHTML='<p class="adm-cont">Carregando…</p>'; $('#cliResumo').innerHTML=''; $('#cliCont').textContent='';
+  try{ const j=await api(adm.loja,{acao:'clientes',token:sess.get(adm.loja)}); adm.cli={leads:j.leads||[],sacolas:j.sacolas||[]}; desenharClientes(); }
+  catch(err){ $('#cliLista').innerHTML='<p class="adm-erro">'+esc(err.message)+'</p>'; }
+}
+function msgFollow(x){
+  const c=CONFIG[adm.loja], pn=String(x.nome||'').split(' ')[0];
+  if(x.itens && x.itens.length) return `Olá, ${pn}! Aqui é da ${c.nome} 😊 Vi que você separou ${x.itens.length>1?'algumas peças':'uma peça'} na nossa loja online (${x.itens.slice(0,3).map(i=>i.n+' tam. '+i.t).join(', ')}). Ainda tem interesse? Posso confirmar a disponibilidade e te ajudar a finalizar.`;
+  return `Olá, ${pn}! Aqui é da ${c.nome} 😊 Obrigado por visitar nossa loja online. Posso te ajudar a encontrar alguma peça?`;
+}
+function desenharClientes(){
+  if(!adm.cli) return;
+  const {leads,sacolas}=adm.cli, f=$('#cliFiltro').value, t=semAcento($('#cliBusca').value.trim()), td=t.replace(/\D/g,'');
+  const ab=sacolas.filter(abandonada), env=sacolas.filter(s=>s.situacao==='Enviada ao WhatsApp'), d30=Date.now()-30*864e5;
+  $('#cliResumo').innerHTML=`<div><b>${leads.length}</b><small>cadastros no site</small></div><div><b>${leads.filter(l=>l.cadastro>d30).length}</b><small>novos nos últimos 30 dias</small></div><div><b>${ab.length}</b><small>sacolas abandonadas</small></div><div><b>${brl(ab.reduce((s,x)=>s+x.total,0))}</b><small>em sacolas abandonadas</small></div><div><b>${env.length}</b><small>pedidos enviados ao WhatsApp</small></div>`;
+  const tipo=f==='leads'?'lead':'sacola';
+  let lista=(f==='leads'?leads:f==='abandonadas'?ab:f==='enviadas'?env:sacolas).filter(x=>!t||semAcento(x.nome).includes(t)||(td&&x.telefone.includes(td)));
+  $('#cliCont').textContent=lista.length+(tipo==='lead'?' cadastro(s)':' sacola(s)')+(f==='abandonadas'?' com produtos há mais de 1 hora, sem pedido enviado':'');
+  if(!lista.length){ $('#cliLista').innerHTML='<p class="adm-cont">Nada por aqui ainda.</p>'; return; }
+  const opts=v=>['','Contatado','Vendido','Sem interesse'].map(o=>`<option value="${o}"${o===v?' selected':''}>${o||'Follow-up pendente'}</option>`).join('');
+  $('#cliLista').innerHTML=lista.slice(0,300).map(x=>{
+    const sit=tipo==='sacola'?(abandonada(x)?'<span class="sit sit-ab">abandonada</span>':x.situacao==='Enviada ao WhatsApp'?'<span class="sit sit-en">pedido enviado</span>':`<span class="sit sit-ou">${esc(x.situacao.toLowerCase())}</span>`):(x.ofertas?'<span class="sit sit-en">aceita ofertas</span>':'');
+    const meta=tipo==='lead'?`cadastro ${dataBR(x.cadastro)} · ${x.visitas} visita(s) · última ${dataBR(x.ultima)}`:`${dataBR(x.data)} · ${x.pecas} peça(s) · <b>${brl(x.total)}</b>`;
+    const zap=x.telefone?`<a href="https://wa.me/${esc(x.telefone)}?text=${encodeURIComponent(msgFollow(tipo==='lead'?{nome:x.nome}:x))}" target="_blank" rel="noopener">Chamar no WhatsApp</a>`:'<span class="cli-meta">sem telefone</span>';
+    return `<div class="cli"><div><span class="cli-nome">${esc(x.nome||'Visitante sem cadastro')}</span>${sit}<div class="cli-meta">${esc(foneBR(x.telefone))} · ${meta}</div></div>
+      ${tipo==='sacola'?`<div class="cli-itens">${esc(x.itens.map(i=>i.q+'x '+i.n+' ('+i.t+')').join(' · ')||x.resumo)}</div>`:''}
+      <div class="adm-acoes">${zap}<select data-cli="${tipo}|${x.linha}|${esc(x.telefone)}" aria-label="Follow-up">${opts(x.follow)}</select></div></div>`;
+  }).join('');
+  $$('#cliLista select[data-cli]').forEach(s=>s.onchange=async()=>{
+    const [tp,linha,tel]=s.dataset.cli.split('|'); s.disabled=true;
+    try{ await api(adm.loja,{acao:'cliente_status',token:sess.get(adm.loja),tipo:tp,linha:+linha,telefone:tel,follow:s.value});
+      const it=(tp==='lead'?adm.cli.leads:adm.cli.sacolas).find(z=>String(z.linha)===linha); if(it) it.follow=s.value; toast('Follow-up salvo'); desenharClientes(); }
+    catch(err){ toast(err.message); s.disabled=false; }
+  });
+}
+$('#cliFiltro').onchange=desenharClientes; $('#cliBusca').oninput=desenharClientes; $('#cliAtualizar').onclick=carregarClientes;
+$('#cliExportar').onclick=()=>{
+  if(!adm.cli) return; const L=$('#cliFiltro').value==='leads';
+  const cel=v=>{ v=String(v??''); if(/^[=+\-@]/.test(v)) v="'"+v; return '"'+v.replace(/"/g,'""')+'"'; };
+  const linhas=L?[['Nome','Telefone','Cadastro','Última visita','Visitas','Aceita ofertas','Follow-up']].concat(adm.cli.leads.map(l=>[l.nome,l.telefone,dataBR(l.cadastro),dataBR(l.ultima),l.visitas,l.ofertas?'Sim':'Não',l.follow]))
+    :[['Nome','Telefone','Atualizada','Situação','Peças','Total','Itens','Follow-up']].concat(adm.cli.sacolas.map(s=>[s.nome,s.telefone,dataBR(s.data),abandonada(s)?'Abandonada':s.situacao,s.pecas,String(s.total).replace('.',','),s.itens.map(i=>i.q+'x '+i.n+' ('+i.t+')').join(' | '),s.follow]));
+  const csv='﻿'+linhas.map(r=>r.map(cel).join(';')).join('\r\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})); a.download=(L?'leads-':'sacolas-')+adm.loja+'.csv'; a.click();
+};
+
 function desenharAdm(){
   const f=$('#admFiltro').value, t=semAcento($('#admBusca').value);
   const lista=adm.itens.filter(i=>{
