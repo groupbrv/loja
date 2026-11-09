@@ -1,0 +1,250 @@
+
+<!-- ===================== ADMIN ===================== -->
+<main id="tela-admin" hidden>
+  <div class="adm">
+    <h1>Área do lojista</h1>
+    <p class="sub">Vitrine, vídeo, Black Friday, destaques, categorias, fotos, avaliações e origem dos clientes. Acesso com o usuário e PIN de administrador do PDV de cada loja.</p>
+    <div class="adm-lojas">
+      <button data-l="bravus">BRAVUS</button>
+      <button data-l="bravinhos">Bravinhos</button>
+    </div>
+    <div class="adm-box" id="admLogin">
+      <form class="adm-login" id="admForm" autocomplete="off">
+        <input id="admUser" placeholder="Usuário do PDV" autocapitalize="none" autocomplete="username">
+        <input id="admPin" placeholder="PIN" type="password" inputmode="numeric" autocomplete="current-password">
+        <button class="adm-btn" id="admEntrar" type="submit">Entrar</button>
+        <div class="adm-erro" id="admErro"></div>
+      </form>
+    </div>
+    <div id="admArea" hidden>
+      <div class="adm-tabs" id="admTabs">
+        <button data-t="produtos" class="on">Produtos e destaques</button>
+        <button data-t="bf">Black Friday</button>
+        <button data-t="origens">Origem dos clientes</button>
+        <button data-t="clientes">Clientes e sacolas</button>
+        <button data-t="capa">Capa e vídeo</button>
+        <button data-t="categorias">Categorias</button>
+        <button data-t="campanha">Faixa de campanha</button>
+        <button data-t="avaliacoes">Avaliações</button>
+        <button data-t="loja">Informações</button>
+        <button data-t="sair">Sair</button>
+      </div>
+
+      <div class="adm-box" data-painel="produtos">
+        <div class="adm-barra">
+          <input id="admBusca" type="search" placeholder="Buscar produto...">
+          <select id="admFiltro" aria-label="Filtro">
+            <option value="todos">Todos</option>
+            <option value="semfoto">Sem foto</option>
+            <option value="comfoto">Com foto</option>
+            <option value="destaque">Destaques</option>
+            <option value="lancamento">Lançamentos</option>
+            <option value="promo">Em promoção</option>
+            <option value="bf">Na Black Friday</option>
+            <option value="ocultos">Ocultos</option>
+          </select>
+        </div>
+        <p class="dica" style="margin-bottom:10px">Cada produto aparece uma vez com as suas cores. <b>Destaque</b>, <b>Lançamento</b>, <b>Ordem</b> e <b>Visível</b> valem para o produto inteiro. A <b>foto</b> e a <b>promoção</b> são de cada cor. Ordem: número menor aparece primeiro nos destaques.</p>
+        <div class="adm-cont" id="admCont"></div>
+        <div id="admItens"></div>
+      </div>
+
+      <div class="adm-box" data-painel="bf" hidden>
+        <div class="adm-form" style="max-width:none">
+          <label class="adm-check"><input type="checkbox" id="cfg_bf_ativa"> Campanha Black Friday ligada</label>
+          <div class="linha2">
+            <label>Começa em <input id="cfg_bf_inicio" type="datetime-local"></label>
+            <label>Termina em <input id="cfg_bf_fim" type="datetime-local"></label>
+          </div>
+          <label>Título <input id="cfg_bf_titulo" placeholder="BLACK FRIDAY BRAVUS"></label>
+          <label>Texto <input id="cfg_bf_subtitulo" placeholder="Até 40% OFF em peças selecionadas"></label>
+          <div><button class="adm-btn" data-salvar="bf_ativa,bf_inicio,bf_fim,bf_titulo,bf_subtitulo" type="button">Salvar campanha</button> <span class="adm-ok" data-ok></span></div>
+          <p class="dica">Enquanto a campanha estiver valendo, o preço da Black Friday também vale no PDV (o caixa cobra o preço da promoção, sem desconto manual). Quando acabar, ou se você desligar, cada produto volta ao preço e à promoção que tinha antes. As mudanças chegam ao site em até 5 minutos.</p>
+          <h3>Produtos da campanha</h3>
+          <div class="adm-barra" style="margin:0">
+            <input id="bfBusca" type="search" placeholder="Buscar produto...">
+            <select id="bfFiltro" aria-label="Filtro"><option value="todos">Todos</option><option value="sim">Participando</option><option value="nao">Fora da campanha</option></select>
+          </div>
+          <div class="adm-barra" style="margin:0">
+            <span class="dica">Selecionados: <b id="bfSelQtd">0</b></span>
+            <label class="dica" style="display:flex;gap:6px;align-items:center;font-weight:600">Desconto <input id="bfPct" type="number" min="1" max="90" value="20" style="width:70px;padding:8px;border:1px solid var(--line);border-radius:8px"> %</label>
+            <button class="adm-btn sec" id="bfAplicarPct" type="button">Incluir selecionados com esse %</button>
+            <button class="adm-btn sec" id="bfRetirar" type="button">Retirar selecionados</button>
+          </div>
+          <div class="rolar-x"><table class="tabela" id="bfTabela"></table></div>
+          <div><button class="adm-btn" id="bfSalvar" type="button">Salvar produtos</button> <span class="adm-ok" id="bfOk"></span></div>
+          <div class="adm-erro" id="bfErros"></div>
+        </div>
+      </div>
+
+      <div class="adm-box" data-painel="origens" hidden>
+        <div class="adm-barra">
+          <select id="relDias" aria-label="Período"><option value="7">Últimos 7 dias</option><option value="30" selected>Últimos 30 dias</option><option value="90">Últimos 90 dias</option><option value="365">Último ano</option><option value="0">Tudo</option></select>
+          <button class="adm-btn sec" id="relAtualizar" type="button">Atualizar</button>
+        </div>
+        <div id="relCorpo"><p class="adm-cont">Carregando…</p></div>
+        <h3 style="font-size:16px;margin:22px 0 8px">Comparativo BRAVUS × Bravinhos</h3>
+        <div id="relComp"></div>
+        <h3 style="font-size:16px;margin:22px 0 8px">Criar link rastreável</h3>
+        <div class="adm-form">
+          <p class="dica">Use estes links nas divulgações. O site registra de onde o cliente veio e a campanha.</p>
+          <div class="linha2">
+            <label>Onde vai usar <select id="lkOrigem"><option value="instagram">Instagram (bio, stories, post)</option><option value="vip">Grupo VIP</option><option value="zap">WhatsApp direto</option><option value="qr">QR Code</option><option value="loja">Loja física</option><option value="ads">Anúncio pago</option></select></label>
+            <label>Campanha <input id="lkCamp" placeholder="ex.: black-friday-26"></label>
+          </div>
+          <label>Página <select id="lkPagina"><option value="">Página inicial da loja</option><option value="black-friday">Black Friday</option><option value="ofertas">Ofertas</option></select></label>
+          <div class="link-gerado"><span id="lkTxt" style="flex:1"></span><button class="adm-btn sec" id="lkCopiar" type="button">Copiar</button></div>
+        </div>
+      </div>
+
+      <div class="adm-box" data-painel="clientes" hidden>
+        <div class="adm-resumo" id="cliResumo"></div>
+        <div class="adm-barra">
+          <select id="cliFiltro" aria-label="Lista">
+            <option value="abandonadas">Sacolas abandonadas</option>
+            <option value="enviadas">Pedidos enviados ao WhatsApp</option>
+            <option value="sacolas">Todas as sacolas</option>
+            <option value="leads">Cadastros (leads)</option>
+          </select>
+          <select id="cliOrigem" aria-label="Origem"><option value="">Todas as origens</option></select>
+          <input id="cliBusca" type="search" placeholder="Buscar nome ou telefone...">
+          <button class="adm-btn sec" id="cliAtualizar" type="button">Atualizar</button>
+          <button class="adm-btn sec" id="cliExportar" type="button">Baixar lista</button>
+        </div>
+        <div class="adm-cont" id="cliCont"></div>
+        <div id="cliLista"></div>
+      </div>
+
+      <div class="adm-box" data-painel="capa" hidden>
+        <div class="adm-form">
+          <h3>Vídeo da capa</h3>
+          <video class="adm-video-prev" id="admVideoPrev" controls muted playsinline hidden></video>
+          <p class="dica" id="admVideoInfo">Sem vídeo: a capa mostra a foto (ou as cores da loja).</p>
+          <div class="adm-acoes">
+            <label class="adm-btn">Enviar vídeo<input type="file" accept="video/mp4,video/webm,video/quicktime" hidden id="admVideoFile"></label>
+            <button class="adm-btn sec" id="admVideoRm" type="button">Remover vídeo</button>
+          </div>
+          <p class="dica">MP4 de até 20 MB e cerca de 10 a 20 segundos. Ele toca sem som e em repetição, e o cliente pode ativar o som. Se o vídeo não carregar, aparece a foto de capa.</p>
+          <label>Ou use um link direto de vídeo (.mp4) <input id="cfg_video_url" placeholder="https://..."><span class="dica">Só se não tiver enviado um vídeo acima.</span></label>
+          <label>Formato do vídeo <select id="cfg_video_formato"><option value="horizontal">Horizontal (16:9)</option><option value="vertical">Vertical (stories/reels)</option></select></label>
+          <button class="adm-btn" data-salvar="video_url,video_formato" type="button">Salvar link e formato</button>
+          <span class="adm-ok" data-ok></span>
+          <h3>Foto de capa (e foto de reserva do vídeo)</h3>
+          <div class="adm-capa-prev" id="admCapaPrev">sem foto de capa</div>
+          <div class="adm-acoes">
+            <label class="adm-btn">Escolher foto de capa<input type="file" accept="image/*" hidden id="admCapaFile"></label>
+            <button class="adm-btn sec" id="admCapaRm" type="button">Remover foto</button>
+          </div>
+          <p class="dica">Use uma foto na horizontal. Sem vídeo, o texto e o logo ficam sobre o lado esquerdo da foto.</p>
+          <h3>Textos da capa</h3>
+          <label>Título da capa <input id="cfg_capa_titulo" placeholder="Ex.: Coleção Verão 2027"></label>
+          <label>Texto de apoio <input id="cfg_capa_subtitulo" placeholder="Ex.: Peças novas toda semana. Peça pelo WhatsApp."></label>
+          <label>Texto do botão <input id="cfg_capa_botao" placeholder="Ver categorias"></label>
+          <label>Título da seção de destaques <input id="cfg_destaques_titulo" placeholder="Destaques"></label>
+          <button class="adm-btn" data-salvar="capa_titulo,capa_subtitulo,capa_botao,destaques_titulo" type="button">Salvar textos</button>
+          <span class="adm-ok" data-ok></span>
+        </div>
+      </div>
+
+      <div class="adm-box" data-painel="categorias" hidden>
+        <div class="adm-form" style="max-width:720px">
+          <p class="dica">As categorias vêm do cadastro de produtos do PDV, e uma categoria nova aparece sozinha no site. Aqui você define a ordem no menu, o nome que aparece para o cliente e quais ficam escondidas.</p>
+          <div id="catAdm"></div>
+          <div><button class="adm-btn" id="catSalvar" type="button">Salvar categorias</button> <span class="adm-ok" id="catOk"></span></div>
+        </div>
+      </div>
+
+      <div class="adm-box" data-painel="campanha" hidden>
+        <div class="adm-form">
+          <p class="dica">Faixa colorida que aparece em "Promoções" com contagem regressiva, junto das peças em promoção. Para a Black Friday, use a aba <b>Black Friday</b>.</p>
+          <label class="adm-check"><input type="checkbox" id="cfg_campanha_ativa"> Faixa de campanha ativa no site</label>
+          <label>Tipo de campanha
+            <select id="cfg_campanha_tipo">
+              <option value="liquida">Liquida / Queima de estoque</option>
+              <option value="aniversario">Aniversário da loja</option>
+              <option value="oportunidade">Oportunidade única</option>
+              <option value="consumidor">Semana do Consumidor</option>
+              <option value="criancas">Dia das Crianças</option>
+              <option value="maes">Dia das Mães</option>
+              <option value="pais">Dia dos Pais</option>
+              <option value="natal">Natal</option>
+              <option value="verao">Verão</option>
+              <option value="black_friday">Black Friday (só a faixa)</option>
+              <option value="outra">Outra</option>
+            </select>
+          </label>
+          <label>Título <input id="cfg_campanha_titulo" placeholder="Ex.: LIQUIDA DE VERÃO"></label>
+          <label>Texto <input id="cfg_campanha_subtitulo" placeholder="Ex.: Até 40% OFF em peças selecionadas. Só até domingo!"></label>
+          <label>Termina em <input id="cfg_campanha_fim" type="datetime-local"><span class="dica">Mostra a contagem regressiva no site. Depois desse horário a faixa some sozinha.</span></label>
+          <button class="adm-btn" data-salvar="campanha_ativa,campanha_tipo,campanha_titulo,campanha_subtitulo,campanha_fim" type="button">Salvar faixa</button>
+          <span class="adm-ok" data-ok></span>
+        </div>
+      </div>
+
+      <div class="adm-box" data-painel="avaliacoes" hidden>
+        <div class="adm-form" style="max-width:none">
+          <p class="dica">Envie prints de avaliações autorizadas pelos clientes. Eles passam sozinhos numa faixa perto do fim da página inicial. Desative um print para tirá-lo do site sem apagar.</p>
+          <label class="adm-btn" style="width:max-content">Adicionar prints<input type="file" accept="image/*" multiple hidden id="admAvalFile"></label>
+          <div class="adm-avals" id="admAvals"></div>
+          <label style="max-width:620px">Link para avaliar no Google <input id="cfg_avaliacao_link" placeholder="https://g.page/r/.../review"><span class="dica">Vem do PDV (Config › LINK_AVALIACAO_GOOGLE) e pode ser trocado aqui.</span></label>
+          <div><button class="adm-btn" data-salvar="avaliacao_link" type="button">Salvar link</button> <span class="adm-ok" data-ok></span></div>
+        </div>
+      </div>
+
+      <div class="adm-box" data-painel="loja" hidden>
+        <div class="adm-form">
+          <label>Aviso no topo do site <input id="cfg_aviso" placeholder="Ex.: Entrega grátis em Mossoró acima de R$ 199"><span class="dica">Deixe em branco para não mostrar.</span></label>
+          <label>Instagram (sem @) <input id="cfg_instagram" placeholder="nomedaloja"></label>
+          <label>Horário de funcionamento <input id="cfg_horario" placeholder="Seg a Sex 9h–18h · Sáb 9h–13h"></label>
+          <button class="adm-btn" data-salvar="aviso,instagram,horario" type="button">Salvar informações</button>
+          <span class="adm-ok" data-ok></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap" id="rodape"></div></footer>
+
+<a class="zap-flutua" id="zapFlutua" target="_blank" rel="noopener" aria-label="Falar no WhatsApp" hidden>
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+
+<!-- SACOLA -->
+<div class="fundo" id="fundo"></div>
+<aside class="gaveta" id="gaveta" aria-label="Sacola">
+  <div class="g-topo"><h2 id="gTitulo">Sacola</h2><button class="fechar" data-fechar aria-label="Fechar">×</button></div>
+  <div class="g-itens" id="gItens"></div>
+  <div class="g-rodape" id="gRodape">
+    <div class="total"><span>Total</span><span id="gTotal">R$ 0,00</span></div>
+    <div class="campo"><label for="cNome">Seu nome *</label><input id="cNome" autocomplete="name" placeholder="Como podemos te chamar?"></div>
+    <div class="linha2">
+      <div class="campo"><label for="cReceber">Receber</label><select id="cReceber"><option>Retirar na loja</option><option>Entrega em Mossoró</option></select></div>
+      <div class="campo"><label for="cPagto">Pagamento</label><select id="cPagto"><option>Pix</option><option>Cartão de crédito</option><option>Cartão de débito</option><option>Dinheiro</option></select></div>
+    </div>
+    <div class="campo" id="campoEnd" hidden><label for="cEnd">Endereço / bairro</label><input id="cEnd" autocomplete="street-address" placeholder="Rua, número, bairro"></div>
+    <div class="campo"><label for="cObs">Observação</label><input id="cObs" placeholder="Ex.: é para presente"></div>
+    <button class="btn-zap" id="btnZap"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>Enviar pedido pelo WhatsApp</button>
+    <p class="aviso">A disponibilidade das peças é confirmada pela nossa equipe no WhatsApp antes do pagamento.</p>
+  </div>
+</aside>
+<aside class="gaveta esq" id="gavetaCats" aria-label="Categorias">
+  <div class="g-topo"><h2>Categorias</h2><button class="fechar" data-fechar aria-label="Fechar">×</button></div>
+  <div class="g-itens" style="padding:0"><div class="menu-cats" id="menuGaveta"></div></div>
+</aside>
+<div class="portao" id="portao" hidden role="dialog" aria-modal="true" aria-labelledby="pTitulo">
+  <div class="portao-caixa">
+    <img id="pLogo" alt="">
+    <h2 id="pTitulo">Bem-vindo!</h2>
+    <p id="pTexto">Informe seu nome e WhatsApp para ver o catálogo completo.</p>
+    <form id="pForm" novalidate>
+      <label>Seu nome<input type="text" id="pNome" autocomplete="name" placeholder="Como podemos te chamar?" maxlength="60"></label>
+      <label>WhatsApp com DDD<input type="tel" id="pFone" autocomplete="tel" inputmode="tel" placeholder="(84) 99999-9999" maxlength="16"></label>
+      <label class="portao-check"><input type="checkbox" id="pOfertas"> <span id="pOfTxt">Quero receber novidades e ofertas pelo WhatsApp</span></label>
+      <div class="portao-erro" id="pErro"></div>
+      <button type="submit" id="pBtn">Ver catálogo</button>
+    </form>
+    <p class="portao-lgpd" id="pLgpd"></p>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
